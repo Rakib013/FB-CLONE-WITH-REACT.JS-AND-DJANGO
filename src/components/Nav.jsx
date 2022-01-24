@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 function Nav() {
@@ -6,7 +6,7 @@ function Nav() {
       <>
         <Container>
             <Left>
-                <Logo src="/images/fb.png" alt="" />
+                <Logo src="/images/fk.png" alt="" />
                 <SearchBox>
                     <img src="/images/search.png" alt="" />
                     <input type="text" placeholder='Search' />
@@ -14,15 +14,15 @@ function Nav() {
             </Left>
             <Center>
                 <div>
-                    <Icon src="/images/home.svg" alt="" />
+                    <Icon src="/images/hm.png" alt="" />
                 </div>
 
                 <div>
-                    <Icon src="/images/frd.svg" alt="" />
+                    <Icon src="/images/friends.png" alt="" />
                 </div>
 
                 <div>
-                    <Icon src="/images/vd.svg" alt="" />
+                    <Icon src="/images/wt.png" alt="" />
                 </div>
             </Center>
             <Right>
@@ -54,6 +54,9 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 5px 5%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 `
 
 const Left = styled.div`
@@ -65,7 +68,14 @@ const Logo = styled.img`
     cursor: pointer;   
     width: 50px;
     margin-right: 15px;
+    border: 1px solid #acc6e0;
+    border-radius: 50%;
+
+    @media screen and (max-width: 1100px){
+        margin-right: 10px;
+    }
 `
+
 
 const SearchBox = styled.div`
     display: flex;
@@ -88,6 +98,10 @@ const SearchBox = styled.div`
         outline: none;
         padding: 13px;
     }
+
+    @media screen and (max-width: 1050px){
+        display: none;
+    }
 `
 
 const Center = styled.div`
@@ -103,11 +117,20 @@ const Center = styled.div`
         background-color: #f0eaea;
         border-radius: 50%;
         cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        @media screen and (max-width: 900px){
+            margin-right: 30px;
+        }
     }
 `
 
 const Icon = styled.img`
-    width: 40px;
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
 `
 
 const Right = styled.div`
@@ -134,6 +157,10 @@ const User = styled.div`
     &:hover{
         background-color: #6d8a8a;
     }
+
+    @media screen and (max-width: 600px){
+        display: none;
+    }
 `
 
 const Dropdown = styled.div`
@@ -156,4 +183,8 @@ const Dropdown = styled.div`
   &:hover{
     background-color: ${props => props.drop ? '#b3aeae' : '#131111'};
   }
+
+  @media screen and (max-width: 900px){
+        display: ${props => props.drop ? '' : 'none'};
+    }
 `
