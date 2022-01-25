@@ -8,3 +8,6 @@ body{
     background: #efefef;
 }
 
+a{
+    text-decoration: none;
+}
