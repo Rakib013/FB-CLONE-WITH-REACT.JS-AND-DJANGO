@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Story from '../components/Story';
 import Post from '../components/Post';
 import Room from '../components/Room';
+import Feed from '../components/Feed';
 
 
 
@@ -70,6 +71,10 @@ function Home() {
                     </div>
                     <Post />
                     <Room />
+
+                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/fahimun.jpeg" />
+                    <Feed name="Chris Harington" desc="Actually i don't want to write know" profile="/images/status-1.png" post="/images/profile.jpg" />
+                    <Feed name="Nick Jonas" desc="Actually i don't want to write know" profile="/images/profile.png" post="/images/nushrat.jpeg" />
                 </Center>
                 <Right>
                     <div>
@@ -170,12 +175,13 @@ const Container = styled.div`
 
 const Left = styled.div`
     flex-basis: 25%;
-    height: calc(100vh - 72px);
-    overflow-y: scroll;
+    height: calc(100vh - 70px);
     position: sticky;
+    overflow-y: scroll;
     top: 70px;
 
     &>button{
+        background-color: #efefef;
         padding-left: 13px;
         display: flex;
         align-items: center;
@@ -296,7 +302,6 @@ const ShortCut = styled.div`
 const Center = styled.div`
     background-color: #efefef;
     flex-basis: 47%;
-    height: 100vh;
 
     &>div{
         display: flex;

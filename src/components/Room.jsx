@@ -1,38 +1,45 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 function Room() {
-  return (
-    <>
-        <Container>
-            <Content>
-                <Box>
-                    <img src="/images/rm.png" alt="" />
-                    <h5>Rakibul's Room</h5>
-                    <span>Get Started</span>
-                    <button>Create Room</button>
-                </Box>
+    const [seeLess, setSeeLess] = useState(true);
+    return (
+        <>
+            {seeLess && (
+                <Container>
+                    <Content>
+                        <Box>
+                            <img src="/images/rm.png" alt="" />
+                            <h5>Rakibul's Room</h5>
+                            <span>Get Started</span>
+                            <button>Create Room</button>
+                        </Box>
 
-                <Box>
-                    <img src="/images/fahimun.jpeg" alt="" />
-                    <h5>Fahimun Islam Lamia</h5>
-                    <button>Say Hi</button>
-                </Box>
+                        <Box>
+                            <img src="/images/fahimun.jpeg" alt="" />
+                            <h5>Fahimun Islam Lamia</h5>
+                            <button>Say Hi</button>
+                        </Box>
 
-                <Box>
-                    <img src="/images/nushrat.jpeg" alt="" />
-                    <h5>Nushrat Jahan</h5>
-                    <button>Say Hi</button>
-                </Box>
+                        <Box>
+                            <img src="/images/nushrat.jpeg" alt="" />
+                            <h5>Nushrat Jahan</h5>
+                            <button>Say Hi</button>
+                        </Box>
 
-                <Box>
-                    <img src="/images/status-1.png" alt="" />
-                    <h5>Sagor Ahammed Munna</h5>
-                    <button>Say Hi</button>
-                </Box>
-            </Content>
-        </Container>
-    </>
+                        <Box>
+                            <img src="/images/status-1.png" alt="" />
+                            <h5>Sagor Ahammed Munna</h5>
+                            <button>Say Hi</button>
+                        </Box>
+
+                        <button onClick={e => setSeeLess(!seeLess)}>
+                            <img src="/images/arrdown.png" alt="" />
+                        </button>
+                    </Content>
+                </Container>
+            )}
+        </>
   );
 }
 
@@ -48,8 +55,25 @@ const Container = styled.div`
 
 const Content = styled.div`
     display: flex;
-    margin-left: auto;
-    margin-right: auto;
+    align-items: center;
+
+    &>button{
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+        border: none;
+        cursor: pointer;
+        transition: 0.4s;
+
+        &>img{
+            width: 30px;
+            transform: rotate(180deg);
+        }
+
+        &:hover{
+            background-color: #aaa6a6;
+        }
+    }
 `
 
 const Box = styled.div`
@@ -61,8 +85,11 @@ const Box = styled.div`
     padding: 5px;
     border-radius: 5px;
     margin-right: 10px;
+    height: 150px;
     transition: 0.4s;
     cursor: pointer;
+
+
     &>img{
         width: 50px;
         height: 50px;
