@@ -36,7 +36,6 @@ export default Post;
 
 
 const Container = styled.div`
-    margin-top: -110px;
     margin-left: 10px;
     background-color: #fff;
     border-radius: 10px;

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Story from '../components/Story';
 import Post from '../components/Post';
+import Room from '../components/Room';
 
 
 
@@ -54,24 +55,21 @@ function Home() {
                 </Left>
                 <Center>
                     <div>
-                        <FirstStory>
+                        <First>
                             <img src="/images/profile.jpg" alt="" />
                             <div>
-                                <div>
-                                    <img src="/images/upload.png" alt="" />
-                                    <p>Create Post</p>
-                                </div>
+                                <img src="/images/upload.png" alt="" />
+                                <p>Create Post</p>
                             </div>
-                        </FirstStory>
-                        <Story image="/images/status-2.png" status="/images/status-2.png" isFirst={false} info="Rakibul" />
-                        <Story image="/images/status-3.png" status="/images/status-3.png" isFirst={false} info="Sagor" />
-                        <Story image="/images/status-4.png" status="/images/status-4.png" isFirst={false} info="Post Story" />
-                        <Story image="/images/status-5.png" status="/images/status-5.png" isFirst={false} info="Post Story" />
-                        <button>
-                            <img src="/images/arrow.png" alt="" />
-                        </button>
+                        </First>
+                        <Story image="/images/nushrat.jpeg" status="/images/status-1.png" info="Harry" />
+                        <Story image="/images/status-3.png" status="/images/status-2.png" info="Potter" />
+                        <Story image="/images/fahimun.jpeg" status="/images/status-3.png" info="Harry" />
+                        <Story image="/images/status-2.png" status="/images/status-4.png" info="Potter" />
+                        <Story image="/images/status-4.png" status="/images/nushrat.jpeg" info="Harry" />
                     </div>
                     <Post />
+                    <Room />
                 </Center>
                 <Right>
                     <div>
@@ -188,12 +186,12 @@ const Left = styled.div`
         
         &>div{
             width: 40px;
-            background-color: #cac7c7;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 40px;
             border-radius: 50%;
+            background-color: #cac7c7;
             &>img{
                 width: 24px;
                 transition: 0.4s;
@@ -324,49 +322,50 @@ const Center = styled.div`
     }
 `
 
-const FirstStory = styled.div`
-    display: flex;
-    justify-content: center;
+const First = styled.div`
+    height: 250px;
     margin-bottom: 20px;
-    border-radius: 10px;
-    height: 380px;
-    width: 150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
 
     &>img{
-        position: absolute;
         border-radius: 10px;
         height: 250px;
-        width: 130px;
+        width: 120px;
+        position: relative;
         object-fit: cover;
+        transition: 0.4s;
     }
 
     &>div{
         display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+        flex-direction: column;
+        align-items: center;
+        flex-basis: 18%;
+        margin-top: 80px;
+        padding-left: 0px;
+        position: absolute;
+        margin-left: 8px;
 
-        &>div{
-            &>img{
-                width: 45px;
-                height: 45px;
-                object-fit: cover;
-                left: 20px;
-                top: 20px;
-                margin-right: 20px;
-                border: 3px solid #1876f2;
-                border-radius: 50%;
-                position: relative;
-            }
+        &>img{
+            width: 30px;
+            height: 30px;
+            object-fit: cover;
+            border: 3px solid #0a66c2;
+            border-radius: 50%;
+        }
 
-            &>p{
-                margin-top: 20px;
-                position: relative;
-                width: 100%;
-                text-align: center;
-                color: white;
-            }
+        &>p{
+            margin-left: 0px;
+            color: white;
+        }
+    }
+
+    &:hover{
+        &>img{
+            transform: scale(1.05);
         }
     }
 `
