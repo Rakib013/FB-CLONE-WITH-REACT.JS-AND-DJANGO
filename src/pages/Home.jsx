@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import Story from '../components/Story';
+import Post from '../components/Post';
+
 
 
 function Home() {
@@ -50,7 +53,25 @@ function Home() {
                     </ShortCut>
                 </Left>
                 <Center>
-                    Center
+                    <div>
+                        <FirstStory>
+                            <img src="/images/profile.jpg" alt="" />
+                            <div>
+                                <div>
+                                    <img src="/images/upload.png" alt="" />
+                                    <p>Create Post</p>
+                                </div>
+                            </div>
+                        </FirstStory>
+                        <Story image="/images/status-2.png" status="/images/status-2.png" isFirst={false} info="Rakibul" />
+                        <Story image="/images/status-3.png" status="/images/status-3.png" isFirst={false} info="Sagor" />
+                        <Story image="/images/status-4.png" status="/images/status-4.png" isFirst={false} info="Post Story" />
+                        <Story image="/images/status-5.png" status="/images/status-5.png" isFirst={false} info="Post Story" />
+                        <button>
+                            <img src="/images/arrow.png" alt="" />
+                        </button>
+                    </div>
+                    <Post />
                 </Center>
                 <Right>
                     <div>
@@ -144,12 +165,15 @@ function Home() {
 export default Home;
 
 const Container = styled.div`
-    display: grid;
-    grid-template-columns: 0.8fr 1.2fr 1fr;
+    display: flex;
     padding: 13px 0;
+    align-self: flex-start;
 `
 
 const Left = styled.div`
+    flex-basis: 25%;
+    height: calc(100vh - 72px);
+    overflow-y: scroll;
     position: sticky;
     top: 70px;
 
@@ -272,17 +296,90 @@ const ShortCut = styled.div`
 `
 
 const Center = styled.div`
-    background-color: #7ca8d1;
+    background-color: #efefef;
+    flex-basis: 47%;
     height: 100vh;
+
+    &>div{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &>button{
+            border: none;
+            background-color: white;
+            padding: 10px;
+            display: flex;
+            height: 40px;
+            width: 40px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-bottom: 20%;
+            &>img{
+                width: 10px;
+            }
+        }
+    }
 `
 
+const FirstStory = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    height: 380px;
+    width: 150px;
+
+    &>img{
+        position: absolute;
+        border-radius: 10px;
+        height: 250px;
+        width: 130px;
+        object-fit: cover;
+    }
+
+    &>div{
+        display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+        &>div{
+            &>img{
+                width: 45px;
+                height: 45px;
+                object-fit: cover;
+                left: 20px;
+                top: 20px;
+                margin-right: 20px;
+                border: 3px solid #1876f2;
+                border-radius: 50%;
+                position: relative;
+            }
+
+            &>p{
+                margin-top: 20px;
+                position: relative;
+                width: 100%;
+                text-align: center;
+                color: white;
+            }
+        }
+    }
+`
 
 const Right = styled.div`
+    flex-basis: 25%;
     background-color: #efefef;
+    height: calc(100vh - 70px);
+    overflow-y: scroll;
     position: sticky;
-    top: 70px;
+    top: 72px;
     margin-right: 50px;
-    margin-left: 50px;
+    margin-left: 20px;
 
     &>div{
         background-color: #fff;
