@@ -49,8 +49,9 @@ const Container = styled.div`
     margin-top: 20px;
     margin-left: 13px;
     padding: 13px;
-    background-color: white;
+    background-color: var(--bg-color);
     border-radius: 10px;
+    color: var(--font-color);
 `
 
 const Content = styled.div`
@@ -77,7 +78,7 @@ const Content = styled.div`
 `
 
 const Box = styled.div`
-    border: 1px solid #9d9fa1;
+    border: 1px solid #131212;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -115,6 +116,6 @@ const Box = styled.div`
     }
 
     &:hover{
-        background-color: #efefef;
+        background-color: #ddedfd;
     }
 `

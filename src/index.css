@@ -4,8 +4,16 @@
     font-family: 'poppins', sans-serif;
 }
 
+:root{
+    --body-color: #242323;
+    --nav-color: #000;
+    --bg-color: #000;
+    --font-color: #5b5c5e;
+}
+
 body{
-    background: #efefef;
+    background: var(--body-color);
+    transition: background 0.3s;
 }
 
 a{

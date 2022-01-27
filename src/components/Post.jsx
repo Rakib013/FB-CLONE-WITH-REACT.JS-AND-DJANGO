@@ -37,8 +37,9 @@ export default Post;
 
 const Container = styled.div`
     margin-left: 10px;
-    background-color: #fff;
+    background-color: var(--bg-color);
     border-radius: 10px;
+    color: var(--font-color);
 `
 
 const Content = styled.div`
@@ -89,6 +90,12 @@ const Button = styled.div`
     &>img{
         margin-right: 10px;
         width: 30px;
+    }
+
+    &>img:first-child{
+        background-color: white;
+        border-radius: 50%;
+        border: 3px solid #1876f2;
     }
 
     &:hover{
