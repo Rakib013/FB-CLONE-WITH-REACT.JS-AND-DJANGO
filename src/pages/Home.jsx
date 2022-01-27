@@ -157,6 +157,38 @@ function Home() {
                                 </div>
                                 <p>Nushrat Jahan</p>
                             </Online>
+
+                            <Online>
+                                <div>
+                                    <div></div>
+                                    <img src="/images/member-1.png" alt="" />
+                                </div>
+                                <p>Sagor Ahammed Munna</p>
+                            </Online>
+
+                            <Online>
+                                <div>
+                                    <div></div>
+                                    <img src="/images/fahimun.jpeg" alt="" />
+                                </div>
+                                <p>Fahimun Islam Lamia</p>
+                            </Online>
+
+                            <Online>
+                                <div>
+                                    <div></div>
+                                    <img src="/images/member-1.png" alt="" />
+                                </div>
+                                <p>Nur Jahan</p>
+                            </Online>
+
+                            <Online>
+                                <div>
+                                    <div></div>
+                                    <img src="/images/nushrat.jpeg" alt="" />
+                                </div>
+                                <p>Nushrat Jahan</p>
+                            </Online>
                         </Onlines>
                     </div>
                 </Right>
@@ -179,9 +211,10 @@ const Left = styled.div`
     position: sticky;
     overflow-y: scroll;
     top: 70px;
+    color: #fff;
 
     &>button{
-        background-color: #efefef;
+        background-color: var(--body-color);
         padding-left: 13px;
         display: flex;
         align-items: center;
@@ -246,7 +279,8 @@ const User = styled.div`
     margin-bottom: 30px;
     cursor: pointer;
     width: 90%;
-    padding: 3px 0px 3px 13px;
+    padding: 3px 0px 3px 2px;
+    margin-left: 13px;
     transition: 0.4s;
     &>img{
         width: 40px;
@@ -258,6 +292,10 @@ const User = styled.div`
     &:hover{
         background-color: white;
         border-radius: 20px;
+    }
+
+    &:hover{
+        color: #1876f2;
     }
 `
 
@@ -300,7 +338,7 @@ const ShortCut = styled.div`
 `
 
 const Center = styled.div`
-    background-color: #efefef;
+    background-color: var(--body-color);
     flex-basis: 47%;
 
     &>div{
@@ -377,16 +415,17 @@ const First = styled.div`
 
 const Right = styled.div`
     flex-basis: 25%;
-    background-color: #efefef;
+    background-color: var(--bg-color);
+    border-radius: 10px;
     height: calc(100vh - 70px);
     overflow-y: scroll;
     position: sticky;
     top: 72px;
     margin-right: 50px;
     margin-left: 20px;
+    color: var(--font-color);
 
     &>div{
-        background-color: #fff;
         border-radius: 10px;
     }
 `
@@ -412,8 +451,12 @@ const Title = styled.div`
         align-items: center;
         &>img{
             width: 25px;
-            margin-right: 30px;
+            margin-right: 20px;
             cursor: pointer;
+            background-color: white;
+            border: 2px solid #1876f2;
+            padding: 3px;
+            border-radius: 50%;
         }
 
         &>img:last-child{
@@ -431,6 +474,7 @@ const Event = styled.div`
 
 const LeftEvent = styled.div`
     display: flex;
+    border: 0.05px solid #424141;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -442,7 +486,7 @@ const LeftEvent = styled.div`
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
     box-sizing: border-box;
 
     &>h3{
@@ -489,6 +533,8 @@ const Online = styled.div`
     align-items: center;
     margin-left: 15px;
     margin-bottom: 15px;
+    cursor: pointer;
+    transition: 0.4s;
 
     &>div{
         position: relative;
@@ -503,9 +549,13 @@ const Online = styled.div`
             width: 10px;
             height: 10px;
             border: 1.2px solid white;
-            background-color: #0ff02d;
+            background-color: #1876f2;
             position: absolute;
             border-radius: 50%;
         }
+    }
+
+    &:hover{
+        color: #1876f2;
     }
 `
