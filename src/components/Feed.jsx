@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
-function Feed({name, profile, post, desc}) {
+function Feed({name, profile, post, desc, dark}) {
   const [isView, setIsView] = useState(false);
+
   return (
     <>
-      <Container>
+      <Container dark={dark}>
           <Content>
             <Profile>
               <div>
@@ -26,9 +28,11 @@ function Feed({name, profile, post, desc}) {
               <a href="#github"> #Rakib013</a> <a href="#github">#Github</a>
             </Desc>
 
-            <POST>
-              <img src={post} alt="" />
-            </POST>
+            <Link to="/photo/view">
+              <POST>
+                <img src={post} alt="" />
+              </POST>
+            </Link>
 
             <Details>
               <div>
@@ -129,7 +133,7 @@ export default Feed;
 
 const Container = styled.div`
   margin-top: 20px;
-  background-color: var(--bg-color);
+  background-color: ${props => props.dark ? 'var(--txt-color)' : 'var(--bg-color)'};
   padding: 10px;
   border-radius: 10px;
   margin-left: 13px;
@@ -170,7 +174,7 @@ const Profile = styled.div`
     width: 25px;
     height: 25px;
     cursor: pointer;
-    margin-left: 530px;
+    margin-left: auto;
     transition: 0.4s;
     background: #fff;
 
@@ -190,6 +194,7 @@ const Desc = styled.p`
 `
 
 const POST = styled.div`
+  cursor: pointer;
   &>img{
     width: 100%;
     height: 100%;
@@ -285,6 +290,9 @@ const Input = styled.div`
     width: 100%;
     border: 1px solid gray;
     border-radius: 20px;
+    display: flex;
+    align-items: center;
+    
     &>input{
       width: 100%;
       height: 25px;

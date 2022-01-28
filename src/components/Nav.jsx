@@ -140,7 +140,7 @@ const Logo = styled.img`
 const SearchBox = styled.div`
     display: flex;
     align-items: center;
-    background: #efefef;
+    background: var(--bg-color);
     width: 250px;
     border-radius: 60px;
     display: flex;
