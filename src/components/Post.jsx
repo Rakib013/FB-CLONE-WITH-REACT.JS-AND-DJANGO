@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Post() {
+function Post({profile}) {
   return (
     <>
-        <Container>
+        <Container dark={profile}>
             <Content>
                 <div>
                     <img src="/images/profile.jpg" alt="" />
@@ -37,7 +37,7 @@ export default Post;
 
 const Container = styled.div`
     margin-left: 10px;
-    background-color: var(--bg-color);
+    background-color: ${props => props.dark ? 'var(--txt-color)' : 'var(--bg-color)'};
     border-radius: 10px;
     color: var(--font-color);
 `

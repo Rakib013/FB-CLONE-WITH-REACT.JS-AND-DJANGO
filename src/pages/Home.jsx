@@ -69,7 +69,7 @@ function Home() {
                         <Story image="/images/status-2.png" status="/images/status-4.png" info="Potter" />
                         <Story image="/images/status-4.png" status="/images/nushrat.jpeg" info="Harry" />
                     </div>
-                    <Post />
+                    <Post profile={false} />
                     <Room />
 
                     <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/fahimun.jpeg" />

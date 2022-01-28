@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import Post from '../components/Post';
+import Feed from '../components/Feed';
 
 function Profile() {
   return (
@@ -68,8 +70,101 @@ function Profile() {
 
         <Bottom>
             <Content>
-                <Left></Left>
-                <Right></Right>
+                <Left>
+                    <Intro>
+                        <h3>Intro</h3>
+                        <p>I just want to create a simple algorithm that can make communicate with Human brain and computers.</p>
+                        <Bio>Edit Bio</Bio>
+                        <ul>
+                            <li> <img src="/images/profile-job.png" alt="" /> Works at Full Stack Web Developer With Django & React.js</li>
+                            <li> <img src="/images/profile-job.png" alt="" />Self Taught Developer</li>
+                            <li> <img src="/images/profile-study.png" alt="" /> Studies Computer Science and Engineering at East West University</li>
+                            <li> <img src="/images/profile-study.png" alt="" /> Went to Patuakhali Govt Jubilee High School</li>
+                            <li> <img src="/images/profile-home.png" alt="" /> Lives in Barisal</li>
+                            <li> <img src="/images/profile-location.png" alt="" /> From Patuakhali, Chittagong, Bangladesh</li>
+                            <li> <img src="/images/love.png" alt="" /> Single</li>
+                        </ul>
+                    </Intro>
+
+                    <Gallery>
+                        <div>
+                            <h3>Photos</h3>
+                            <p>See all</p>
+                        </div>
+                        <div>
+                            <img src="/images/member-1.png" alt="" />
+                            <img src="/images/member-2.png" alt="" />
+                            <img src="/images/member-3.png" alt="" />
+                            <img src="/images/fahimun.jpeg" alt="" />
+                            <img src="/images/member-1.png" alt="" />
+                            <img src="/images/profile.jpg" alt="" />
+                            <img src="/images/member-1.png" alt="" />
+                            <img src="/images/nushrat.jpeg" alt="" />
+                            <img src="/images/member-3.png" alt="" />
+                        </div>
+                    </Gallery>
+
+                    <Friends>
+                        <div>
+                            <h3>Friends</h3>
+                            <p>See all friends</p>
+                        </div>
+
+                        <div>
+                            <div>
+                                <img src="/images/member-1.png" alt="" />
+                                <span>Fahimun Islam</span>
+                            </div>
+
+                            <div>
+                                <img src="/images/member-2.png" alt="" />
+                                <span>Nushrat Jahan</span>
+                            </div>
+
+                            <div>
+                                <img src="/images/profile.jpg" alt="" />
+                                <span>Rakibul Islam</span>
+                            </div>
+
+                            <div>
+                                <img src="/images/member-1.png" alt="" />
+                                <span>Fahimun Islam</span>
+                            </div>
+
+                            <div>
+                                <img src="/images/member-2.png" alt="" />
+                                <span>Nushrat Jahan</span>
+                            </div>
+
+                            <div>
+                                <img src="/images/profile.jpg" alt="" />
+                                <span>Rakibul Islam</span>
+                            </div>
+
+                            <div>
+                                <img src="/images/member-1.png" alt="" />
+                                <span>Fahimun Islam</span>
+                            </div>
+
+                            <div>
+                                <img src="/images/member-2.png" alt="" />
+                                <span>Nushrat Jahan</span>
+                            </div>
+
+                            <div>
+                                <img src="/images/profile.jpg" alt="" />
+                                <span>Rakibul Islam</span>
+                            </div>
+                        </div>
+                    </Friends>
+                </Left>
+                <Right>
+                    <Post profile={true} />
+                    <Feed dark={true} name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/fahimun.jpeg" />
+                    <Feed dark={true} name="Chris Harington" desc="Actually i don't want to write know" profile="/images/status-1.png" post="/images/profile.jpg" />
+                    <Feed dark={true} name="Nick Jonas" desc="Actually i don't want to write know" profile="/images/profile.png" post="/images/nushrat.jpeg" />
+                    <Feed dark={true} name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/fahimun.jpeg" />
+                </Right>
             </Content>
         </Bottom>
 
@@ -82,8 +177,9 @@ export default Profile;
 
 const Container = styled.div`
     padding: 0 15%;
+    padding-bottom: 10px;
     position: relative;
-    background: #fff;
+    background: var(--text-color);
 `
 
 const Cover = styled.img`
@@ -185,6 +281,7 @@ const Action = styled.div`
     display: flex;
     padding-left: 13px;
     padding-bottom: 10px;
+    color: var(--font-color);
 
     &>div{
         display: flex;
@@ -211,10 +308,147 @@ const Action = styled.div`
 
 const Bottom = styled.div`
     background-color: var(--bg-color);
+    padding: 20px 15%;
+    color: var(--font-color);
 `
 
-const Content = styled.div``
+const Content = styled.div`
+    display: grid;
+    grid-template-columns: 35% 65%;
+`
 
-const Left = styled.div``
+const Left = styled.div`
+`
 
-const Right = styled.div``
+const Intro = styled.div`
+    background-color: var(--txt-color);
+    border-radius: 10px;
+    padding: 10px;
+
+    &>h3{
+        color: #fff;
+        margin-bottom: 15px;
+    }
+
+    &>p{
+        text-align: center;
+    }
+
+    &>ul{
+        list-style: none;
+        &>li{
+            display: flex;
+            align-items: flex-start;
+            padding: 5px;
+
+            &>img{
+                width: 25px;
+                margin-right: 10px;
+            }
+        }
+    }
+`
+
+const Bio = styled.button`
+    width: 100%;
+    background-color: #363636;
+    margin: 15px;
+    margin-left: -2px;
+    padding: 10px 5px;
+    border-radius: 10px;
+    border: none;
+    color: #959697;
+    cursor: pointer;
+    transition: 0.4s;
+
+    &:hover{
+        background-color: #504f4f;
+    }
+`
+
+const Right = styled.div`
+    position: sticky;
+    overflow-y: scroll;
+    height: 190vh;
+`
+
+const Gallery = styled.div`
+    margin-top: 10px;
+    background-color: var(--txt-color);
+    padding: 10px;
+    border-radius: 10px;
+
+    &>div{
+        display: flex;
+        justify-content: space-between;
+        &>h3{
+            color: #fff;
+        }
+
+        &>p{
+            color: #1876f2;
+            cursor: pointer;
+        }
+    }
+
+    &>div:last-child{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 10px;
+        margin-top: 10px;
+
+        &>img{
+            width: 105px;
+            height: 120px;
+            border-radius: 5px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+    }
+`
+
+const Friends = styled.div`
+    margin-top: 10px;
+    background-color: var(--txt-color);
+    padding: 10px;
+    border-radius: 10px;
+
+    &>div{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &>h3{
+            color: #fff;
+        }
+
+        &>p{
+            color: #1876f2;
+            cursor: pointer;
+        }
+
+    }
+
+    &>div:last-child{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        margin-top: 10px;
+        grid-row-gap: 15px;
+        grid-column-gap: 10px;
+
+        &>div{
+            &>img{
+                width: 105px;
+                height: 120px;
+                border-radius: 5px;
+                object-fit: cover;
+                cursor: pointer;
+            }
+
+            &>span{
+                color: var(--font-color);
+                font-size: 12px;
+                cursor: pointer;
+            }
+        }
+    }
+`
