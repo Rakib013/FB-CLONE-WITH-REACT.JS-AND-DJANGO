@@ -42,6 +42,10 @@ function Nav() {
                     <img src="/images/notification.png" alt="" />
                 </Dropdown>
 
+                <Dropdown>
+                    <img src="/images/mesenger.png" alt="" />
+                </Dropdown>
+
                 <Dropdown onClick={e => setIsDrop(!isDrop)} drop={true}>
                     <img src="/images/fbarrow.png" alt="" />
                 </Dropdown>

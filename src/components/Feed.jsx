@@ -47,7 +47,7 @@ function Feed({name, profile, post, desc, dark}) {
 
             <Action>
               <button>
-                <img src="/images/lk.png" alt="" />
+                <img src="/images/lik.png" alt="" />
                 <p>Like</p>
               </button>
 
@@ -82,9 +82,9 @@ function Feed({name, profile, post, desc, dark}) {
                 </Comment>
 
                 <Comment>
-                  <img src="/images/fahimun.jpeg" alt="" />
+                  <img src="/images/nushrat.jpeg" alt="" />
                   <div>
-                    <h5>Fahimun Islam Lamia</h5>
+                    <h5>Nushrat Jahan</h5>
                     <h6>Where are you man? You are looking gorgeous. We missed you so much come to the versity. If you wouldn't come right now we 
                       will direct come your home.
                     </h6>
@@ -92,9 +92,9 @@ function Feed({name, profile, post, desc, dark}) {
                 </Comment>
 
                 <Comment>
-                  <img src="/images/fahimun.jpeg" alt="" />
+                  <img src="/images/profile.jpg" alt="" />
                   <div>
-                    <h5>Fahimun Islam Lamia</h5>
+                    <h5>Rakibul Islam</h5>
                     <h6>Where are you man? You are looking gorgeous. We missed you so much come to the versity. If you wouldn't come right now we 
                       will direct come your home.
                     </h6>
@@ -102,7 +102,7 @@ function Feed({name, profile, post, desc, dark}) {
                 </Comment>
 
                 <Comment>
-                  <img src="/images/fahimun.jpeg" alt="" />
+                  <img src="/images/status-1.png" alt="" />
                   <div>
                     <h5>Fahimun Islam Lamia</h5>
                     <h6>Where are you man? You are looking gorgeous. We missed you so much come to the versity. If you wouldn't come right now we 
@@ -154,9 +154,18 @@ const Profile = styled.div`
       border-radius: 50%;
       object-fit: cover;
       margin-right: 20px;
+      cursor: pointer;
     }
 
     &>div{
+      &>h5{
+        cursor: pointer;
+        transition: 0.3s;
+
+        &:hover{
+          color: #1876f2;
+        }
+      }
       &>div{
         display: flex;
         align-items: center;
@@ -176,10 +185,10 @@ const Profile = styled.div`
     cursor: pointer;
     margin-left: auto;
     transition: 0.4s;
-    background: #fff;
-
+    background: #6d6e6e;
+    
     &:hover{
-      background: #3de4f0;
+      background: #fff;
     }
   }
 `
@@ -238,6 +247,7 @@ const Action = styled.div`
   border-bottom: 1px solid #0a66c2;
   margin-bottom: 5px;
   display: flex;
+  padding: 5px;
   justify-content: space-around;
   color: var(--font-color);
     &>button{
@@ -253,19 +263,16 @@ const Action = styled.div`
       transition: 0.4s;
       color: var(--font-color);
       &>img{
-        width: 40px;
+        width: 20px;
         margin-right: 15px;
-        background-color: var(--font-color);
-        border-radius: 30%;
       }
-
+      
       &>p{
         font-size: 1rem;
       }
 
       &:hover{
-        background-color: #e2e3e5;
-
+        background-color: var(--txt-color);
       }
     }
 `
