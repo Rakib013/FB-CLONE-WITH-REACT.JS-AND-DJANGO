@@ -116,6 +116,6 @@ const Box = styled.div`
     }
 
     &:hover{
-        background-color: #ddedfd;
+        background-color: var(--txt-color);
     }
 `

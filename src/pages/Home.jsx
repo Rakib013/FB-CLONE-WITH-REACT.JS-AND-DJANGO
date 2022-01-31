@@ -277,7 +277,7 @@ const Links = styled.div`
         }
         
         &:hover{
-            background-color: white;
+            background-color: var(--bg-color);
             border-radius: 20px;
 
         }
@@ -302,7 +302,7 @@ const User = styled.div`
     }
     
     &:hover{
-        background-color: white;
+        background-color: var(--bg-color);
         border-radius: 20px;
     }
 
@@ -343,7 +343,7 @@ const ShortCut = styled.div`
         }
         
         &:hover{
-            background-color: white;
+            background-color: var(--bg-color);
             border-radius: 30px;
         }
     }

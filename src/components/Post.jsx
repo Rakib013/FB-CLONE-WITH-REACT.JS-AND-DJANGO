@@ -84,7 +84,7 @@ const Button = styled.div`
     display: flex;
     align-items: center;
     border-radius: 30px;
-    padding: 10px;
+    padding: 3px;
     transition: 0.4s;
     cursor: pointer;
     &>img{
@@ -99,6 +99,6 @@ const Button = styled.div`
     }
 
     &:hover{
-        background-color: #cee1fa;
+        background-color: var(--txt-color);
     }
 `

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Post from '../components/Post';
 import Feed from '../components/Feed';
 
-function Profile() {
+function Profile({ user }) {
   return (
     <>
         <Container>
@@ -28,10 +28,21 @@ function Profile() {
                         <img src="/images/fahimun.jpeg" alt="" />
                     </div>
                 </div>
-                <div>
-                    <button><img src="/images/create.png" alt="" /> Add To Story</button>
-                    <button><img src="/images/edit.gif" alt="" /> Edit Profile</button>
-                </div>
+
+                {
+                    user ? (
+                        <div>
+                            <button><img src="/images/create.png" alt="" /> Add To Story</button>
+                            <button><img src="/images/edit.gif" alt="" /> Edit Profile</button>
+                        </div>
+                    ) : (
+                        <div>
+                        <button><img src="/images/comments.png" alt="" /> Friends</button>
+                        <button><img src="/images/mesenger.png" alt="" /> Message</button>
+                    </div>
+                    )
+                }
+
             </Details>
 
             <Action>
@@ -192,6 +203,7 @@ const User = styled.div`
     left: 15%;
     border-radius: 50%;
     position: absolute;
+    cursor: pointer;
     &>img{
         border: 3px solid #1876f2;
         position: relative;
@@ -424,6 +436,10 @@ const Friends = styled.div`
         &>p{
             color: #1876f2;
             cursor: pointer;
+        }
+
+        &:hover{
+            color: #1876f2;
         }
 
     }
