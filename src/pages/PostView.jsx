@@ -257,7 +257,7 @@ const Content = styled.div`
 
 const IMG = styled.div`
     background-color: black;
-    height: 820px;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
