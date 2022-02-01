@@ -13,21 +13,23 @@ function Home() {
     return (
         <>
             <Container>
-                <LeftSideBar />
+                <Left>
+                    <LeftSideBar />
+                </Left>
                 <Center>
                     <div>
-                        <First>
+                        <First className='first'>
                             <img src="/images/profile.jpg" alt="" />
                             <div>
                                 <img src="/images/upload.png" alt="" />
                                 <p>Create Post</p>
                             </div>
                         </First>
-                        <Story image="/images/nushrat.jpeg" status="/images/status-1.png" info="Harry" />
-                        <Story image="/images/status-3.png" status="/images/status-2.png" info="Potter" />
-                        <Story image="/images/fahimun.jpeg" status="/images/status-3.png" info="Harry" />
-                        <Story image="/images/status-2.png" status="/images/status-4.png" info="Potter" />
-                        <Story image="/images/status-4.png" status="/images/nushrat.jpeg" info="Harry" />
+                        <Story stle={false} image="/images/nushrat.jpeg" status="/images/status-1.png" info="Harry" />
+                        <Story className='third' image="/images/status-3.png" status="/images/status-2.png" info="Potter" />
+                        <Story className='fourth' image="/images/fahimun.jpeg" status="/images/status-3.png" info="Harry" />
+                        <Story className='fiveth' image="/images/status-2.png" status="/images/status-4.png" info="Potter" />
+                        <Story className='last' image="/images/status-4.png" status="/images/nushrat.jpeg" info="Harry" />
                     </div>
                     <Post profile={false} />
                     <Room />
@@ -48,7 +50,9 @@ function Home() {
                     <Feed name="Chris Harington" desc="Actually i don't want to write know" profile="/images/status-1.png" post="/images/profile.jpg" />
                     <Feed name="Nick Jonas" desc="Actually i don't want to write know" profile="/images/profile.png" post="/images/nushrat.jpeg" />
                 </Center>
-                <RightSideBar />
+                <Right>
+                    <RightSideBar />
+                </Right>
             </Container>
         </>
     );
@@ -62,31 +66,22 @@ const Container = styled.div`
     align-self: flex-start;
 `
 
+const Left = styled.div`
+    flex-basis: 20%;
+
+    @media screen and (max-width: 1000px){
+        display: none;
+    }
+`
+
 const Center = styled.div`
     background-color: var(--body-color);
     flex-basis: 47%;
 
-    &>div{
-        display: flex;
-        justify-content: space-between;
+    &>div:first-child{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
         align-items: center;
-
-        &>button{
-            border: none;
-            background-color: white;
-            padding: 10px;
-            display: flex;
-            height: 40px;
-            width: 40px;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            cursor: pointer;
-            margin-bottom: 20%;
-            &>img{
-                width: 10px;
-            }
-        }
     }
 `
 
@@ -135,5 +130,13 @@ const First = styled.div`
         &>img{
             transform: scale(1.05);
         }
+    }
+`
+
+const Right = styled.div`
+    flex-basis: 25%;
+
+    @media screen and (max-width: 1100px){
+        display: none;
     }
 `

@@ -3,7 +3,19 @@ import styled from 'styled-components';
 
 function Post({profile}) {
     const [isPost, setIsPost] = useState(false);
-  return (
+    const [shareFile, setShareFile] = useState("");
+
+    const handleChange = (e) => {
+        const image = e.target.files[0]
+    
+        if(image === '' || image === undefined){
+            alert(`Not an image, the file is a ${typeof{ image }}`);
+            return;
+        }
+        setShareFile(image)
+      }
+    
+    return (
     <>
         <Container dark={profile}>
             <Content>
@@ -49,17 +61,31 @@ function Post({profile}) {
                         </User>
 
                         <Input>
-                            <input type="text" placeholder="What's on your mind, Rakibul?" />
+                            <textarea type="text" placeholder="What's on your mind, Rakibul?" />
                             <img src="/images/pemoji.png" alt="" />
                         </Input>
 
                         <PhotoInput>
-                            <div>
-                                <img src="/images/addimg.png" alt="" />
-                                <h4>Add Photos/Videos</h4>
-                                <h6>or drag and drop</h6>
-                            </div>
+                            {
+                                !shareFile ? (
+                                    <div onClick={e => document.getElementById("file").click()}>
+                                        <input onChange={handleChange} id="file" type="file" />
+                                        <img src="/images/addimg.png" alt="" />
+                                        <h4>Add Photos/Videos</h4>
+                                        <h6>or drag and drop</h6>
+                                    </div>
+                                ) : (
+                                    <div onClick={e => document.getElementById("file").click()}>
+                                        <input onChange={handleChange} id="file" type="file" />
+                                        <img src={URL.createObjectURL(shareFile)} alt="" />
+                                    </div>
+                                )
+                            }
                         </PhotoInput>
+
+                        <Submit>
+                            Post
+                        </Submit>
 
                     </Box>
                 </Upload>
@@ -234,8 +260,10 @@ const Input = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    &>input{
+    margin: 10px 0;
+    &>textarea{
         width: 100%;
+        height: 100px;
         background-color: transparent;
         outline: none;
         border: none;
@@ -248,6 +276,71 @@ const Input = styled.div`
 `
 
 const PhotoInput = styled.div`
-    margin: 0 10px;
-    border: 1px solid gray;
+    margin: 0 30px;
+    padding: 10px 0;
+    border: 1px solid #353434;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &>div{
+        background-color: #353434;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 95%;
+        height: 200px;
+        cursor: pointer;
+        border-radius: 10px;
+        transition: 0.3s;
+
+        &>input{
+            visibility: hidden;
+        }
+
+        &>img{
+            width: 30px;
+            height: 30px;
+            margin-bottom: 10px;
+        }
+
+        &>h4{
+            color: white;
+        }
+
+        &:hover{
+            border-radius: 5px;
+            background-color: #414040;
+
+        }
+    }
+
+    &>div:last-child{
+        &>img:last-child{
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            border-radius: 7px;
+            margin: 0;
+        }
+
+    }
+`
+
+const Submit = styled.button`
+    margin: 20px;
+    width: 90%;
+    padding: 7px 0;
+    border-radius: 7px;
+    background-color: #1876f2;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover{
+        background-color: #458eee;
+    }
 `

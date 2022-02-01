@@ -52,7 +52,6 @@ function LeftSideBar() {
 export default LeftSideBar;
 
 const Left = styled.div`
-    flex-basis: 25%;
     height: calc(100vh - 70px);
     position: sticky;
     overflow-y: scroll;

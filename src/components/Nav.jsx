@@ -258,7 +258,7 @@ const Settings = styled.div`
     width: 90%;
     max-width: 350px;
     max-height: auto;
-    background: #fff;
+    background: var(--txt-color);
     right: 5%;
     top: 62px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
@@ -293,18 +293,20 @@ const SetUser = styled.div`
     align-items: center;
     margin: 13px;
     border-radius: 33px;
-    color: #0a0909;
+    color: white;
     &>img{
         width: 70px;
         height: 70px;
         border-radius: 50%;
         object-fit: cover;
         margin-right: 10px;
+        cursor: pointer;
     }
 
     &>div{
         &>h6{
             color: #0a66c2;
+            cursor: pointer;
         }
     }
 `
@@ -318,6 +320,7 @@ const FeedBack = styled.div`
     margin: 13px;
     cursor: pointer;
     transition: 0.4s;
+    color: white;
     &>img{
         width: 40px;
         margin-right: 15px;
@@ -333,7 +336,8 @@ const FeedBack = styled.div`
     }
 
     &:hover{
-        background-color: #dae1fa;
+        border: 1px solid gray;
+        background-color: var(--bg-color);
         border-radius: 40px;
     }
 `
@@ -363,7 +367,7 @@ const Action = styled.div`
     }
 
     &:hover{
-        background-color: #efefef;
+        background-color: var(--bg-color);
         border-radius: 50px;
 
         &>img{

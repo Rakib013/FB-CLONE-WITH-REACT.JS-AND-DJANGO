@@ -125,14 +125,12 @@ function RightSideBar() {
 export default RightSideBar;
 
 const Right = styled.div`
-    flex-basis: 25%;
     background-color: var(--bg-color);
     border-radius: 10px;
     height: calc(100vh - 70px);
     overflow-y: scroll;
     position: sticky;
     top: 72px;
-    margin-right: 50px;
     margin-left: 20px;
     color: var(--font-color);
 
