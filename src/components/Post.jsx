@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 function Post({profile}) {
+    const [isPost, setIsPost] = useState(false);
   return (
     <>
         <Container dark={profile}>
@@ -11,22 +12,59 @@ function Post({profile}) {
                     <button>What's on your mind, Rakibul?</button>
                 </div>
                 <Last>
-                    <Button>
+                    <Button onClick={e => setIsPost(!isPost)}>
                         <img src="/images/vd.gif" alt="" />
                         Live Video
                     </Button>
 
-                    <Button>
+                    <Button onClick={e => setIsPost(!isPost)}>
                         <img src="/images/pt.png" alt="" />
                         Photos/Videos
                     </Button>
 
-                    <Button>
+                    <Button onClick={e => setIsPost(!isPost)}>
                         <img src="/images/feel.png" alt="" />
                         Feeling/Activity
                     </Button>
                 </Last>
             </Content>
+            {
+                isPost && (
+                    <Upload>
+                    <Box>
+                        <Head>
+                            <h3>Create Post</h3>
+                            <span onClick={e => setIsPost(!isPost)}>X</span>
+                        </Head>
+                        <User>
+                            <img src="/images/profile.jpg" alt="" />
+                            <div>
+                                <h4>Rakibul Islam</h4>
+                                <div>
+                                    <img src="/images/frds.png" alt="" />
+                                    <span>Friends</span>
+                                    <img src="/images/fbarrow.png" alt="" />
+                                </div>
+                            </div>
+                        </User>
+
+                        <Input>
+                            <input type="text" placeholder="What's on your mind, Rakibul?" />
+                            <img src="/images/pemoji.png" alt="" />
+                        </Input>
+
+                        <PhotoInput>
+                            <div>
+                                <img src="/images/addimg.png" alt="" />
+                                <h4>Add Photos/Videos</h4>
+                                <h6>or drag and drop</h6>
+                            </div>
+                        </PhotoInput>
+
+                    </Box>
+                </Upload>
+                )
+            }
         </Container>
     </>
   );
@@ -101,4 +139,115 @@ const Button = styled.div`
     &:hover{
         background-color: var(--txt-color);
     }
+`
+
+const Upload = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+const Box = styled.div`
+    background-color: #1b1b1b;
+    width: 30%;
+    height: 70%;
+    border-radius: 10px;
+    -webkit-box-shadow: -2px -1px 20px 5px #928f92; 
+    box-shadow: -2px -1px 20px 5px #6b6a6b;
+    `
+
+const Head = styled.div`
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 5px;
+    border-bottom: 1px solid gray;
+    &>h3{
+        color: #fff;
+        margin-left: auto;
+        margin-right: auto;
+        font-weight: 400;
+    }
+    &>span{
+        padding: 5px;
+        color: #fff;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid white;
+        border-radius: 50%;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.4s;
+
+        &:hover{
+            background-color: #1876f2;
+        }
+    }
+`
+
+const User = styled.div`
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 10px;
+    &>img{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 15px;
+    }
+    &>div{
+        &>div{
+            display: flex;
+            align-items: center;
+            background-color: gray;
+            padding: 3px;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            justify-content: space-between;
+            &>img{
+                width: 20px;
+            }
+            &>span{
+                font-size: 12px;
+                color: black;
+            }
+        }
+    }
+`
+
+const Input = styled.div`
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &>input{
+        width: 100%;
+        background-color: transparent;
+        outline: none;
+        border: none;
+        color: gray;
+    }
+    &>img{
+        width: 25px;
+        cursor: pointer;
+    }
+`
+
+const PhotoInput = styled.div`
+    margin: 0 10px;
+    border: 1px solid gray;
 `
