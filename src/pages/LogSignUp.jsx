@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 function LogSignUp() {
+    const [isPoped, setIsPoped] = useState(false);
   return (
       <>
         <Container>
@@ -22,7 +23,7 @@ function LogSignUp() {
                             Log In
                         </button>
                         <span>Forgotten Password?</span>
-                        <button>
+                        <button onClick={e => setIsPoped(!isPoped)}>
                             Create New Account
                         </button>
                     </Login>
@@ -30,6 +31,82 @@ function LogSignUp() {
                         <b>Create a Page</b> for a celebrity, brand or business.
                     </p>
                 </div>
+                {
+                    isPoped && (
+                        <PopUp>
+                            <SignUp>
+                                <PopHead>
+                                    <div>
+                                        <h2>Sign Up</h2>
+                                        <p>It's quick and easy</p>
+                                    </div>
+                                    <span onClick={e => setIsPoped(!isPoped)}>X</span>
+                                </PopHead>
+                                <Input>
+                                    <div>
+                                        <input type="text" placeholder='First name' />
+                                        <input type="text" placeholder='Surname' />
+                                    </div>
+                                    <input type="email" name="" placeholder='Mobile number or Email address' id="" />
+                                    <input type="password" placeholder='New Password' />
+
+                                    <div>
+
+                                    </div>
+                                </Input>
+                                <Choice>
+                                    <p>Date of birth</p>
+                                    <div>
+                                        <select name="date" id="">
+                                            <option value="#">1</option>
+                                            <option value="#">2</option>
+                                            <option value="#">3</option>
+                                        </select>
+
+                                        <select name="date" id="">
+                                            <option value="#">Jan</option>
+                                            <option value="#">Feb</option>
+                                            <option value="#">Mar</option>
+                                        </select>
+
+                                        <select name="date" id="">
+                                            <option value="#">2021</option>
+                                            <option value="#">2020</option>
+                                            <option value="#">2019</option>
+                                        </select>
+                                    </div>
+                                </Choice>
+
+                                <Choice2>
+                                    <p>Gender</p>
+                                    <div>
+                                        <button onClick={e => document.getElementById("male").click()}>
+                                            Female<input type="radio" id="male" value="Male" name="gender" />
+                                        </button>
+
+                                        <button onClick={e => document.getElementById("female").click()}>
+                                            Male<input type="radio" id="female" value="Male" name="gender" />
+                                        </button>
+
+                                        <button onClick={e => document.getElementById("custom").click()}>
+                                            Custom<input type="radio" id="custom" value="Male" name="gender" />
+                                        </button>
+                                    </div>
+                                </Choice2>
+
+                                <p>
+                                    By clicking Sign Up, you agree to our <a href="#t">Terms</a>, <a href="#e">Data Policy</a> and <a href="#w">Cookie Policy</a>. You may receive SMS notifications from us and can opt out at any time
+                                </p>
+
+                                <div>
+                                    <Submit>
+                                        Sign Up
+                                    </Submit>
+                                </div>
+                            </SignUp>
+                        </PopUp>
+                    )
+                }
             </Content>
         </Container>
       </>
@@ -45,6 +122,7 @@ const Container = styled.div`
 
 const Content = styled.div`
     display: flex;
+    padding: 0 50px;
     height: 100vh;
     justify-content: space-around;
     align-items: center;
@@ -174,4 +252,191 @@ const Login = styled.div`
         width: 60%;
         font-size: 1.1rem;
     }
+`
+
+const PopUp = styled.div`
+    background-color: #ffffff7f;
+    top: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+
+
+const SignUp = styled.div`
+    background-color: white;
+    -webkit-box-shadow: 1px 0px 12px -2px rgba(0,0,0,0.56); 
+    box-shadow: 1px 0px 12px -2px rgba(0,0,0,0.56);
+    width: 33%;
+    border-radius: 5px;
+
+    &>p{
+        padding: 15px;
+        padding-top: 0;
+        font-size: .7rem;
+        font-weight: 300;
+
+        &>a{
+            color: #1876f2;
+            font-weight: 500;
+        }
+    }
+
+    &>div:last-child{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+`
+
+const PopHead = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 13px;
+    border-bottom: 1px solid #8f8e8e;
+
+    &>div{
+        &>p{
+            color: #8f8e8e;
+        }
+    }
+
+    &>span{
+        font-weight: 500;
+        font-size: 1.5rem;
+        color: gray;
+        cursor: pointer;
+
+        &:hover{
+            color: black;
+        }
+    }
+`
+
+const Input = styled.div`
+    padding: 13px;
+    padding-bottom: 0px;
+    display: flex;
+    flex-direction: column;
+
+    &>div{
+        margin-bottom: 10px;
+        display: flex;
+
+        &>input{
+            width: 50%;
+            height: 30px;
+            background-color: #f5f6f7;
+            padding: 3px 5px;
+            border: none;
+            border: 1px solid #bdbebe;
+            border-radius: 5px;
+            outline: none;
+            color: gray;
+
+            &:focus{
+                border: 1.5px solid #1876f2;
+            }
+        }
+
+        &>input:first-child{
+            margin-right: 10px;
+        }
+    }
+
+    &>input{
+        margin-bottom: 10px;
+        height: 30px;
+        background-color: #f5f6f7;
+        padding: 3px 5px;
+        border: none;
+        border: 1px solid #bdbebe;
+        border-radius: 5px;
+        outline: none;
+        color: gray;
+
+        &:focus{
+            border: 1.5px solid #1876f2;
+        }
+    }
+
+    &>input:last-child{
+        margin-bottom: 0;
+    }
+`
+
+const Choice = styled.div`
+    padding: 13px;
+    padding-top: 0;
+
+    &>p{
+        color: gray;
+        font-size: .8rem;
+        
+    }
+
+    &>div{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        &>select{
+            width: 30%;
+            height: 35px;
+            padding: 3px 5px;
+            border: 1px solid #bdbebe;
+            color: #3b3b3b;
+            outline: none;
+            border-radius: 5px;
+        }
+    }
+`
+
+const Choice2 = styled.div`
+    padding: 13px;
+    padding-top: 0;
+
+    &>p{
+        color: gray;
+        font-size: .8rem;
+    }
+
+    &>div{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        &>button{
+            width: 30%;
+            height: 30px;
+            padding: 15px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #bdbebe;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #f5f6f7;
+            color: #5a5a5a;
+        }
+    }
+`
+
+const Submit = styled.button`
+    width: 40%;
+    height: 40px;
+    margin-top: 10px;
+    background-color: #06cf06;
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
 `
