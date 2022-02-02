@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
 import Story from '../components/Story';
 import Post from '../components/Post';
 import Room from '../components/Room';
