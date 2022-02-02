@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Post from '../components/Post';
 import Feed from '../components/Feed';
 
-function Profile({ user }) {
+function Profile({ user, isFriend, isRequested }) {
   return (
     <>
         <Container>
@@ -37,9 +37,23 @@ function Profile({ user }) {
                         </div>
                     ) : (
                         <div>
-                        <button><img src="/images/comments.png" alt="" /> Friends</button>
+                        {
+                            isFriend ? (
+                                <button><img src="/images/comments.png" alt="" /> Friends</button>
+                            ) : (
+                                <>
+                                    {
+                                        isRequested ? (
+                                            <button><img src="/images/add-friends.png" alt="" />Add Friend</button>
+                                        ) : (
+                                            <button><img src="/images/shr.png" alt="" />Cancle request</button>
+                                        )
+                                    }
+                                </>
+                            )
+                        }
                         <button><img src="/images/mesenger.png" alt="" /> Message</button>
-                    </div>
+                        </div>
                     )
                 }
 
