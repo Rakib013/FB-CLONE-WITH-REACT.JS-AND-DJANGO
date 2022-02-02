@@ -8,7 +8,7 @@ function PostView() {
         <Container>
             <Content>
                 <IMG>
-                    <img src="/images/profile.jpg" alt="" />
+                    <img src="/images/nushrat.jpeg" alt="" />
                     <Link to="/">
                         <img src="/images/cross.png" alt="" />
                     </Link>
@@ -257,16 +257,15 @@ const Content = styled.div`
 
 const IMG = styled.div`
     background-color: black;
-    height: 100%;
+    height: 820px;
     display: flex;
     justify-content: center;
     align-items: center;
 
 
     &>img:first-child{
-        height: 100%;
-        width: 100%;
-        object-fit: contain;
+        max-height: 800px;
+        object-fit: cover;
         position: relative;
     }
 
