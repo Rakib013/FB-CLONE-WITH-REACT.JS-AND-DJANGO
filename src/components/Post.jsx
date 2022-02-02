@@ -258,7 +258,7 @@ const User = styled.div`
 const Input = styled.div`
     padding: 10px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     margin: 10px 0;
     &>textarea{

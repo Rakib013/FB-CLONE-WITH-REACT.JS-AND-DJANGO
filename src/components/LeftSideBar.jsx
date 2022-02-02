@@ -102,7 +102,7 @@ const Links = styled.div`
         display: flex;
         align-items: center;
         margin-bottom: 10px;
-        color: #626262;
+        color: var(--font-color);
         width: 90%;
         &>img{
             width: 25px;
