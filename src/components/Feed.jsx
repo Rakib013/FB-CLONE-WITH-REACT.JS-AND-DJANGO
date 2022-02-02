@@ -11,9 +11,13 @@ function Feed({name, profile, post, desc, dark}) {
           <Content>
             <Profile>
               <div>
-                <img src={profile} alt="" />
+                <Link to="/profile">
+                  <img src={profile} alt="" />
+                </Link>
                 <div>
-                  <h5>{name}</h5>
+                  <Link to="/profile">
+                    <h5>{name}</h5>
+                  </Link>
                   <div>
                     <h6>2h . </h6>
                     <img src="/images/lact.png" alt="" />
@@ -148,22 +152,27 @@ const Profile = styled.div`
   color: var(--font-color);
   &>div{
     display: inline-flex;
-    &>img{
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-right: 20px;
-      cursor: pointer;
+    &>a{
+      &>img{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 20px;
+        cursor: pointer;
+      }
     }
 
     &>div{
-      &>h5{
-        cursor: pointer;
-        transition: 0.3s;
+      &>a{
+        color: #fff;
+        &>h5{
+          cursor: pointer;
+          transition: 0.3s;
 
-        &:hover{
-          color: #1876f2;
+          &:hover{
+            color: #1876f2;
+          }
         }
       }
       &>div{

@@ -34,21 +34,19 @@ function Home() {
                     <Post profile={false} />
                     <Room />
 
-                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/fahimun.jpeg" />
-                    <Feed name="Chris Harington" desc="Actually i don't want to write know" profile="/images/status-1.png" post="/images/profile.jpg" />
-                    <Feed name="Nick Jonas" desc="Actually i don't want to write know" profile="/images/profile.png" post="/images/nushrat.jpeg" />
-                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/fahimun.jpeg" />
-                    <Feed name="Chris Harington" desc="Actually i don't want to write know" profile="/images/status-1.png" post="/images/profile.jpg" />
-                    <Feed name="Nick Jonas" desc="Actually i don't want to write know" profile="/images/profile.png" post="/images/nushrat.jpeg" />
-                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/fahimun.jpeg" />
-                    <Feed name="Chris Harington" desc="Actually i don't want to write know" profile="/images/status-1.png" post="/images/profile.jpg" />
-                    <Feed name="Nick Jonas" desc="Actually i don't want to write know" profile="/images/profile.png" post="/images/nushrat.jpeg" />
-                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/fahimun.jpeg" />
-                    <Feed name="Chris Harington" desc="Actually i don't want to write know" profile="/images/status-1.png" post="/images/profile.jpg" />
-                    <Feed name="Nick Jonas" desc="Actually i don't want to write know" profile="/images/profile.png" post="/images/nushrat.jpeg" />
-                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/fahimun.jpeg" />
-                    <Feed name="Chris Harington" desc="Actually i don't want to write know" profile="/images/status-1.png" post="/images/profile.jpg" />
-                    <Feed name="Nick Jonas" desc="Actually i don't want to write know" profile="/images/profile.png" post="/images/nushrat.jpeg" />
+                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/profile.jpg" />
+                    <Feed name="Chris Harington" desc="Actually i don't want to write know" profile="/images/status-1.png" post="/images/feed-image-3.png" />
+                    <Feed name="Nick Jonas" desc="Actually i don't want to write know" profile="/images/profile.png" post="/images/feed-image-4.png" />
+                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/feed-image-5.png" />
+                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/feed-image-1.png" />
+                    <Feed name="Chris Harington" desc="Actually i don't want to write know" profile="/images/status-1.png" post="/images/feed-image-3.png" />
+                    <Feed name="Nick Jonas" desc="Actually i don't want to write know" profile="/images/profile.png" post="/images/feed-image-4.png" />
+                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/feed-image-5.png" />
+                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/feed-image-1.png" />
+                    <Feed name="Chris Harington" desc="Actually i don't want to write know" profile="/images/status-1.png" post="/images/feed-image-3.png" />
+                    <Feed name="Nick Jonas" desc="Actually i don't want to write know" profile="/images/profile.png" post="/images/feed-image-4.png" />
+                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/feed-image-5.png" />
+                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/feed-image-1.png" />
                 </Center>
                 <Right>
                     <RightSideBar />

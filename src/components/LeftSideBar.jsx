@@ -1,12 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 function LeftSideBar() {
   return (
     <Left>
         <User>
             <img src="/images/profile.jpg" alt="" />
-            <span>Rakibul Islam</span>
+            <Link to="/profile">
+                <span>Rakibul Islam</span>
+            </Link>
         </User>
         <Links>
             <a href="#news"><img src="/images/lt.png" alt="" />Latest News</a>
@@ -137,6 +140,11 @@ const User = styled.div`
     &:hover{
         background-color: var(--bg-color);
         border-radius: 20px;
+    }
+
+    &>a{
+        text-decoration: none;
+        color: white;
     }
 
     &:hover{
