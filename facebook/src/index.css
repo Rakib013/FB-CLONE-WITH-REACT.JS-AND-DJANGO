@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'poppins', sans-serif;
+}
+
+:root{
+    --body-color: #161616;
+    --nav-color: #000;
+    --bg-color: #000;
+    --font-color: #bdbebe;
+    --txt-color: #161616;
+}
+
+body{
+    background: var(--body-color);
+    transition: background 0.3s;
+}
+
+a{
+    text-decoration: none;
+}
