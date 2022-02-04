@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 
 
 class User(AbstractUser):
@@ -10,6 +10,10 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     friends = models.ManyToManyField('self', blank=True)
     requestedFriend = models.ManyToManyField('self', blank=True, related_name='requestedFriend')
+
+    objects = UserManager()
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.username

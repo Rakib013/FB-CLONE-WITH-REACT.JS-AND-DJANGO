@@ -1,8 +1,37 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import { axiosInitial } from '../api/axios';
 
 function LogSignUp() {
     const [isPoped, setIsPoped] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [surName, setSurName] = useState("");
+    const username = firstName + " " + surName;
+
+    const login = async () => {
+        await axiosInitial.post(`login/`, {
+            'email': email,
+            'password': password
+        }).then(res => {
+            console.log(res.data);
+        })
+        console.log(email, password);
+    }
+
+    const signup = async () => {
+        console.log(username);
+        await axiosInitial.post(`signup/`, {
+            'username': surName,
+            'email': email,
+            'password': password,
+        }).then(res => {
+            console.log(res.data);
+        })
+        console.log(email, password, username);
+    }
+
   return (
       <>
         <Container>
@@ -17,9 +46,9 @@ function LogSignUp() {
                 </div>
                 <div>
                     <Login>
-                        <input type="text" placeholder='Email or Phone' name="" id="" />
-                        <input type="password" placeholder='Password' />
-                        <button>
+                        <input type="text" onChange={e => setEmail(e.target.value)} placeholder='Email or Phone' name="" id="" />
+                        <input type="password" onChange={e => setPassword(e.target.value)} placeholder='Password' />
+                        <button onClick={login}>
                             Log In
                         </button>
                         <span>Forgotten Password?</span>
@@ -44,14 +73,13 @@ function LogSignUp() {
                                 </PopHead>
                                 <Input>
                                     <div>
-                                        <input type="text" placeholder='First name' />
-                                        <input type="text" placeholder='Surname' />
+                                        <input onChange={e => setFirstName(e.target.value)} type="text" placeholder='First name' />
+                                        <input onChange={e => setSurName(e.target.value)} type="text" placeholder='Surname' />
                                     </div>
-                                    <input type="email" name="" placeholder='Mobile number or Email address' id="" />
-                                    <input type="password" placeholder='New Password' />
+                                    <input onChange={e => setEmail(e.target.value)} type="email" name="" placeholder='Mobile number or Email address' id="" />
+                                    <input type="password" onChange={e => setPassword(e.target.value)} placeholder='New Password' />
 
                                     <div>
-
                                     </div>
                                 </Input>
                                 <Choice>
@@ -99,7 +127,7 @@ function LogSignUp() {
                                 </p>
 
                                 <div>
-                                    <Submit>
+                                    <Submit onClick={signup}>
                                         Sign Up
                                     </Submit>
                                 </div>
