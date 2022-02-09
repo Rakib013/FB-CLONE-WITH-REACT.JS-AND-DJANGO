@@ -5,6 +5,11 @@ import {Link} from 'react-router-dom';
 function Nav() {
     const [isDrop, setIsDrop] = useState(false);
     const [isDark, setIsDark] = useState(false);
+
+    const logout = (e) => {
+        localStorage.setItem("token", null);
+        window.location.reload();
+    }
     return (
       <>
         <Container>
@@ -95,7 +100,7 @@ function Nav() {
                             <img src="/images/arrow.png" alt="" />
                         </Action>
 
-                        <Action>
+                        <Action onClick={logout}>
                             <div>
                                 <img src="/images/logout.png" alt="" />
                                 <h5>Logout</h5>

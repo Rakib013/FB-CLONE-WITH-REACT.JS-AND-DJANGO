@@ -25,7 +25,7 @@ function Home() {
                                 <p>Create Post</p>
                             </div>
                         </First>
-                        <Story stle={false} image="/images/nushrat.jpeg" status="/images/status-1.png" info="Harry" />
+                        <Story stle={false} image="/images/status-1.png" status="/images/status-1.png" info="Harry" />
                         <Story className='third' image="/images/status-3.png" status="/images/status-2.png" info="Potter" />
                         <Story className='fourth' image="/images/fahimun.jpeg" status="/images/status-3.png" info="Harry" />
                         <Story className='fiveth' image="/images/status-2.png" status="/images/status-4.png" info="Potter" />

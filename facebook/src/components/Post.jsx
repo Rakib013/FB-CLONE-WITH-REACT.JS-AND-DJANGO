@@ -19,7 +19,7 @@ function Post({profile}) {
     <>
         <Container dark={profile}>
             <Content>
-                <div>
+                <div onClick={e => setIsPost(!isPost)}>
                     <img src="/images/profile.jpg" alt="" />
                     <button>What's on your mind, Rakibul?</button>
                 </div>

@@ -18,10 +18,10 @@ class AuthUser(APIView):
         if user:
             login(request, user)
             if Token.objects.filter(user=user).exists():
-                token = Token.objects.get(user=user)
+                token = Token.objects.get(user=user).key
             else:
-                token = Token.objects.create(user=user)
-            return Response({"Token": token.key}, status=status.HTTP_200_OK)
+                token = Token.objects.create(user=user).key
+            return Response({"Token": token}, status=status.HTTP_200_OK)
         else:
             return Response("User doesn't exist", status=status.HTTP_204_NO_CONTENT)
 
@@ -35,3 +35,13 @@ class UserSignUp(APIView):
             return Response("Signup succesfully completed", status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserProfile(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
