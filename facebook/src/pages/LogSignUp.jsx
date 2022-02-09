@@ -4,6 +4,7 @@ import { axiosInitial } from '../api/axios';
 
 function LogSignUp() {
     const [isPoped, setIsPoped] = useState(false);
+    const [isError, setIsError] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [firstName, setFirstName] = useState("");
@@ -15,21 +16,29 @@ function LogSignUp() {
             'email': email,
             'password': password
         }).then(res => {
-            console.log(res.data);
-        })
-        console.log(email, password);
+            localStorage.setItem('token', res.data.Token);
+            window.location.reload();
+        });
+        
     }
 
     const signup = async () => {
         console.log(username);
         await axiosInitial.post(`signup/`, {
             'username': surName,
+            'first_name': firstName,
+            'last_name': surName,
             'email': email,
             'password': password,
-        }).then(res => {
-            console.log(res.data);
+        }).then(async (res) => {
+            await axiosInitial.post(`login/`, {
+                'email': email,
+                'password': password
+            }).then(res => {
+                localStorage.setItem('token', res.data.Token);
+                window.location.reload();
+            });
         })
-        console.log(email, password, username);
     }
 
   return (
@@ -48,6 +57,11 @@ function LogSignUp() {
                     <Login>
                         <input type="text" onChange={e => setEmail(e.target.value)} placeholder='Email or Phone' name="" id="" />
                         <input type="password" onChange={e => setPassword(e.target.value)} placeholder='Password' />
+                        {
+                            isError && (
+                                <p>Username or Password is incorrect!</p>
+                            )
+                        }
                         <button onClick={login}>
                             Log In
                         </button>
@@ -108,16 +122,25 @@ function LogSignUp() {
                                 <Choice2>
                                     <p>Gender</p>
                                     <div>
-                                        <button onClick={e => document.getElementById("male").click()}>
-                                            Female<input type="radio" id="male" value="Male" name="gender" />
+                                        <button onClick={e => {
+                                            document.getElementById("male").click();
+                                            console.log(e.target.value)
+                                        }}>
+                                            Female<input type="radio" id="male" value="Female" name="gender" />
                                         </button>
 
-                                        <button onClick={e => document.getElementById("female").click()}>
+                                        <button onClick={e => {
+                                            document.getElementById("female").click();
+                                            console.log(e.target.value)
+                                        }}>
                                             Male<input type="radio" id="female" value="Male" name="gender" />
                                         </button>
 
-                                        <button onClick={e => document.getElementById("custom").click()}>
-                                            Custom<input type="radio" id="custom" value="Male" name="gender" />
+                                        <button onClick={e => {
+                                            document.getElementById("custom").click();
+                                            console.log(e.target.value)
+                                        }}>
+                                            Custom<input type="radio" id="custom" value="Custom" name="gender" />
                                         </button>
                                     </div>
                                 </Choice2>
@@ -269,6 +292,14 @@ const Login = styled.div`
         &:hover{
             color: #59d610;
         }
+    }
+
+    &>p{
+        margin-left: auto;
+        margin-right: auto;
+        padding-bottom: 10px;
+        font-size: 0.8rem;
+        color: crimson;
     }
 
     &>button:last-child{
