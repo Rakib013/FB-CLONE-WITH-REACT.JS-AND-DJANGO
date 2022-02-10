@@ -14,3 +14,13 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         token = Token.objects.create(user=user)
         return token.key
+
+
+class PostSerializer(serializers.ModelSerializer):
+    profile = serializers.SerializerMethodField()
+    class Meta:
+        model = Post
+        fields = [ "id", "profile", "user", "title", "content", "post", "react", "created_at", "updated_at"]
+
+    def get_profile(self, obj):
+        return UserSerializer(obj.user, many=False).data

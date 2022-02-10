@@ -34,7 +34,11 @@ function Feed({name, profile, post, desc, dark}) {
 
             <Link to="/photo/view">
               <POST>
-                <img src={post} alt="" />
+                {
+                  post && (
+                    <img src={post} alt="" />
+                  )
+                }
               </POST>
             </Link>
 

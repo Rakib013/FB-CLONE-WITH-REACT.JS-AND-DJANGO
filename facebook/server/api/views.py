@@ -8,6 +8,7 @@ from . serializers import *
 from rest_framework import status
 
 
+# Login API View
 class AuthUser(APIView):
     def post(self, request):
         email = request.data.get("email")
@@ -26,10 +27,10 @@ class AuthUser(APIView):
             return Response("User doesn't exist", status=status.HTTP_204_NO_CONTENT)
 
 
+# Signup API View
 class UserSignUp(APIView):
     def post(self, request, format=None):
         serializer = UserSerializer(data=request.data)
-        print(serializer)
         if serializer.is_valid():
             serializer.save()
             return Response("Signup succesfully completed", status=status.HTTP_201_CREATED)
@@ -37,6 +38,7 @@ class UserSignUp(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# Profile API View
 class UserProfile(APIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
@@ -45,3 +47,33 @@ class UserProfile(APIView):
         user = request.user
         serializer = UserSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+# All Posts API View
+class PostsView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        data = Post.objects.all()
+        serializer = PostSerializer(data, many=True)
+        user_post = request.user.post_set.all()
+        user_post_serializer = PostSerializer(user_post, many=True)
+        return Response({"All": serializer.data, "User Post": user_post_serializer.data}, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        serializer = PostSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response("Post successfully created", status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# Single Post API View
+class PostView(APIView):
+    def get(self, request, id):
+        data = Post.objects.get(id=id)
+        serializer = PostSerializer(data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
