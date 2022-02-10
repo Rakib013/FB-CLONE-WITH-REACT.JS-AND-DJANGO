@@ -6,10 +6,22 @@ import Room from '../components/Room';
 import Feed from '../components/Feed';
 import LeftSideBar from '../components/LeftSideBar';
 import RightSideBar from '../components/RightSideBar';
+import {axiosInstance} from '../api/axios';
 
 
 
 function Home() {
+    const [posts, setPosts] = React.useState([]);
+
+    React.useEffect(() => {
+        const fetchPosts = async () => {
+            const res = await axiosInstance.get('/posts/');
+            setPosts(res.data.All);
+        }
+        fetchPosts();
+        console.log(posts);
+    }, []);
+
     return (
         <>
             <Container>
@@ -34,19 +46,12 @@ function Home() {
                     <Post profile={false} />
                     <Room />
 
-                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/profile.jpg" />
-                    <Feed name="Chris Harington" desc="Actually i don't want to write know" profile="/images/status-1.png" post="/images/feed-image-3.png" />
-                    <Feed name="Nick Jonas" desc="Actually i don't want to write know" profile="/images/profile.png" post="/images/feed-image-4.png" />
-                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/feed-image-5.png" />
-                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/feed-image-1.png" />
-                    <Feed name="Chris Harington" desc="Actually i don't want to write know" profile="/images/status-1.png" post="/images/feed-image-3.png" />
-                    <Feed name="Nick Jonas" desc="Actually i don't want to write know" profile="/images/profile.png" post="/images/feed-image-4.png" />
-                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/feed-image-5.png" />
-                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/feed-image-1.png" />
-                    <Feed name="Chris Harington" desc="Actually i don't want to write know" profile="/images/status-1.png" post="/images/feed-image-3.png" />
-                    <Feed name="Nick Jonas" desc="Actually i don't want to write know" profile="/images/profile.png" post="/images/feed-image-4.png" />
-                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/feed-image-5.png" />
-                    <Feed name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/feed-image-1.png" />
+                    {
+                        posts?.map((data, index) => (
+                            <Feed key={index} name={data.profile.first_name + data.profile.last_name} desc={data.title} profile={`http://127.0.0.1:8000${data.profile.profile}`} post={`http://127.0.0.1:8000${data.post}`} />
+                        ))
+                    }
+                    
                 </Center>
                 <Right>
                     <RightSideBar />
