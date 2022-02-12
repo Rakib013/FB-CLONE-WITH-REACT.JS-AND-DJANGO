@@ -24,3 +24,14 @@ class PostSerializer(serializers.ModelSerializer):
 
     def get_profile(self, obj):
         return UserSerializer(obj.user, many=False).data
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    profile = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Comment
+        fields = [ "id", "profile", "user", "post", "comment", "created_at", "updated_at"]
+    
+    def get_profile(self, obj):
+        return UserSerializer(obj.user, many=False).data

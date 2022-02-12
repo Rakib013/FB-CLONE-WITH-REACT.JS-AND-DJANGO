@@ -1,3 +1,4 @@
+from html5lib import serialize
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -77,3 +78,20 @@ class PostView(APIView):
         serializer = PostSerializer(data)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
+
+class CommentView(APIView):
+    def get(self, request, id):
+        data = Post.objects.get(id=id)
+        serializer = CommentSerializer(data.comment_set.all(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class PostComment(APIView):
+    def post(self, request):
+        serializer = CommentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response("Comment successfully created", status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
