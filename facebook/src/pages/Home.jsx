@@ -19,9 +19,7 @@ function Home() {
             setPosts(res.data.All);
         }
         fetchPosts();
-        console.log(posts);
     }, []);
-
     return (
         <>
             <Container>
@@ -48,7 +46,7 @@ function Home() {
 
                     {
                         posts?.map((data, index) => (
-                            <Feed key={index} name={data.profile.first_name + data.profile.last_name} desc={data.title} profile={`http://127.0.0.1:8000${data.profile.profile}`} post={`http://127.0.0.1:8000${data.post}`} />
+                            <Feed key={index} id={data.id} name={data.profile.first_name + data.profile.last_name} desc={data.title} profle={`http://127.0.0.1:8000${data.profile.profile}`} post={`http://127.0.0.1:8000${data.post}`} />
                         ))
                     }
                     

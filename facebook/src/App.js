@@ -14,7 +14,6 @@ const App = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       const res = await axiosInstance.get('/profile');
-      console.log(res.data);
       dispatch({
         type: 'PROFILE',
         profile: res.data

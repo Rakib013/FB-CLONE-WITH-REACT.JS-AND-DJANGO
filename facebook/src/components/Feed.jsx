@@ -1,10 +1,41 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
+import {axiosInstance} from '../api/axios';
+import { useGlobalState } from '../state/provider';
 
-function Feed({name, profile, post, desc, dark}) {
+function Feed({name, profle, post, desc, dark, id}) {
   const [isView, setIsView] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
+  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
+  const [{profile}] = useGlobalState();
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      const res = await axiosInstance.get(`/post/comment/${id}/`);
+      setComments(res.data);
+    }
+    fetchComments();
+  }, [id]);
+
+  const PostComment = async () => {
+    await axiosInstance.post(`/post/comment/`, {
+      user: profile.id,
+      post: id,
+      comment: comment
+    }).then( async res => {
+      setIsView(true);
+    })
+  }
+
+  var inp = document.getElementById("comment-inp");
+  inp?.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+      document.getElementById("comment-btn").click();
+    }
+  });
 
   return (
     <>
@@ -13,7 +44,7 @@ function Feed({name, profile, post, desc, dark}) {
             <Profile>
               <div>
                 <Link to="/profile">
-                  <img src={profile} alt="" />
+                  <img src={profle} alt="" />
                 </Link>
                 <div>
                   <Link to="/profile">
@@ -98,52 +129,27 @@ function Feed({name, profile, post, desc, dark}) {
 
             {isView && (
               <Comments>
-                <Comment>
-                  <img src="/images/fahimun.jpeg" alt="" />
-                  <div>
-                    <h5>Fahimun Islam Lamia</h5>
-                    <h6>Where are you man? You are looking gorgeous. We missed you so much come to the versity. If you wouldn't come right now we 
-                      will direct come your home.
-                    </h6>
-                  </div>
-                </Comment>
 
-                <Comment>
-                  <img src="/images/nushrat.jpeg" alt="" />
-                  <div>
-                    <h5>Nushrat Jahan</h5>
-                    <h6>Where are you man? You are looking gorgeous. We missed you so much come to the versity. If you wouldn't come right now we 
-                      will direct come your home.
-                    </h6>
-                  </div>
-                </Comment>
+                {
+                  comments.map(comment => (
+                    <Comment key={comment?.id}>
+                      <img src="/images/fahimun.jpeg" alt="" />
+                      <div>
+                        <h5>{comment.profile.username}</h5>
+                        <h6>{comment.comment}</h6>
+                      </div>
+                    </Comment>
+                  ))
+                }
 
-                <Comment>
-                  <img src="/images/profile.jpg" alt="" />
-                  <div>
-                    <h5>Rakibul Islam</h5>
-                    <h6>Where are you man? You are looking gorgeous. We missed you so much come to the versity. If you wouldn't come right now we 
-                      will direct come your home.
-                    </h6>
-                  </div>
-                </Comment>
-
-                <Comment>
-                  <img src="/images/status-1.png" alt="" />
-                  <div>
-                    <h5>Fahimun Islam Lamia</h5>
-                    <h6>Where are you man? You are looking gorgeous. We missed you so much come to the versity. If you wouldn't come right now we 
-                      will direct come your home.
-                    </h6>
-                  </div>
-                </Comment>
               </Comments>
             )}
 
             <Input>
               <img src="/images/profile.jpg" alt="" />
               <div>
-                <input type="text" placeholder='Write your comment here' />
+                <input onChange={e => setComment(e.target.value)} id="comment-inp" type="text" placeholder='Write your comment here' />
+                <button onClick={PostComment} id="comment-btn">Comment</button>
                 <img src="/images/icit.png" alt="" />
                 <img src="/images/gf.png" alt="" />
                 <img src="/images/cam.png" alt="" />
@@ -391,6 +397,17 @@ const Input = styled.div`
     &>img:last-child{
       margin-right: 0px;
     }
+
+    &>button{
+      background-color: var(--txt-color);
+      color: white;
+      border: none;
+      margin-right: 10px;
+      padding: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
   }
 `
 
@@ -410,13 +427,14 @@ const View = styled.div`
 
 const Comments = styled.div`
   margin-left: 13px;
-  height: 300px;
+  max-height: 300px;
   overflow-y: scroll;
 `
 
 const Comment = styled.div`
   display: flex;
   align-items: center;
+  margin-top: 15px;
   margin-bottom: 10px;
   &>img{
     width: 30px;
@@ -428,7 +446,7 @@ const Comment = styled.div`
 
   &>div{
     background-color: #111111;
-    width: 60%;
+    max-width: 60%;
     padding: 10px;
     border-radius: 20px;
     &>h5{
