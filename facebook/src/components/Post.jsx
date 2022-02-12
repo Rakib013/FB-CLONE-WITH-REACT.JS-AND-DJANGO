@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import {axiosInstance} from '../api/axios';
+import {useGlobalState} from '../state/provider';
 
-function Post({profile}) {
+function Post({profiles}) {
+    const [{profile}] = useGlobalState();
     const [isPost, setIsPost] = useState(false);
     const [shareFile, setShareFile] = useState("");
+    const [title, setTitle] = useState("");
+    console.log(profile);
 
     const handleChange = (e) => {
         const image = e.target.files[0]
@@ -13,11 +18,21 @@ function Post({profile}) {
             return;
         }
         setShareFile(image)
-      }
+    }
+
+    const PostSubmit = async(e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('user', profile.id);
+        formData.append('post', shareFile, shareFile.name);
+        await axiosInstance.post(`posts/`, formData);
+        window.location.reload();
+    }
     
     return (
     <>
-        <Container dark={profile}>
+        <Container dark={profiles}>
             <Content>
                 <div onClick={e => setIsPost(!isPost)}>
                     <img src="/images/profile.jpg" alt="" />
@@ -61,7 +76,7 @@ function Post({profile}) {
                         </User>
 
                         <Input>
-                            <textarea type="text" placeholder="What's on your mind, Rakibul?" />
+                            <textarea type="text" onChange={ e => setTitle(e.target.value)} placeholder="What's on your mind, Rakibul?" />
                             <img src="/images/pemoji.png" alt="" />
                         </Input>
 
@@ -83,7 +98,7 @@ function Post({profile}) {
                             }
                         </PhotoInput>
 
-                        <Submit>
+                        <Submit onClick={PostSubmit}>
                             Post
                         </Submit>
 

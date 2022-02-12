@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 
 function Feed({name, profile, post, desc, dark}) {
   const [isView, setIsView] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
 
   return (
     <>
@@ -24,7 +25,25 @@ function Feed({name, profile, post, desc, dark}) {
                   </div>
                 </div>
               </div>
-              <img src="/images/thd.png" alt="" />
+              <div>
+                <img onClick={e => setIsDelete(!isDelete)} src="/images/thd.png" alt="" />
+                {
+                  isDelete && (
+                    <div onClick={e => setIsDelete(!isDelete)}>
+                      <span>
+                        <img src="/images/x.png" alt="" />
+                      </span>
+                      <span>
+                        <img src="/images/delete.png" alt="" /> Delete
+                      </span>
+
+                      <span>
+                        <img src="/images/edit.png" alt="" /> Edit
+                      </span>
+                    </div>
+                  )
+                }
+              </div>
             </Profile>
 
             <Desc>
@@ -190,18 +209,53 @@ const Profile = styled.div`
     }
   }
 
-  &>img{
-    padding: 5px 5px;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-    margin-left: auto;
-    transition: 0.4s;
-    background: #6d6e6e;
-    
-    &:hover{
-      background: #fff;
+  &>div:last-child{
+
+    &>img{
+      padding: 5px 5px;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+      margin-left: auto;
+      transition: 0.4s;
+      background: #6d6e6e;
+      position: relative;
+      &:hover{
+        background: #fff;
+      }
+    }
+
+    &>div{
+      background-color: var(--txt-color);
+      position: absolute;
+      width: 180px;
+      right: 300px;
+      padding: 10px;
+      border-radius: 10px;
+      transition: 0.4s;
+      
+      &>span{
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        color: crimson;
+        margin-bottom: 20px;
+        &>img{
+          margin-right: 10px;
+          width: 20px;
+        }
+      }
+
+      &>span:last-child{
+        margin-bottom: 10px;
+        color: green;
+      }
+
+      &>span:first-child{
+        margin-left: 90px;
+        margin-bottom: 10px;
+      }
     }
   }
 `
@@ -350,7 +404,7 @@ const View = styled.div`
   transition: 0.4s;
   
   &:hover{
-    background-color: #e5e8eb;
+    color: #0a66c2;
   }
 `
 
