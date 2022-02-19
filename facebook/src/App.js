@@ -13,11 +13,13 @@ const App = () => {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const res = await axiosInstance.get('/profile');
-      dispatch({
-        type: 'PROFILE',
-        profile: res.data
+      await axiosInstance.get('/profile').then(res => {
+        dispatch({
+          type: 'PROFILE',
+          profile: res.data
+        })
       })
+      
     }
     fetchProfile();
 
