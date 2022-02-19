@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {axiosInstance} from '../api/axios';
 import { useGlobalState } from '../state/provider';
 
-function Feed({name, profle, post, desc, dark, id}) {
+function Feed({name, profle, post, desc, dark, id, owner}) {
   const [isView, setIsView] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [comment, setComment] = useState("");
@@ -26,16 +26,13 @@ function Feed({name, profle, post, desc, dark, id}) {
       comment: comment
     }).then( async res => {
       setIsView(true);
+      await axiosInstance.get(`/post/comment/${id}/`).then(out => {
+        setComments(out.data);
+      })
     })
   }
 
-  var inp = document.getElementById("comment-inp");
-  inp?.addEventListener("keyup", function(event) {
-    event.preventDefault();
-    if (event.keyCode === 13) {
-      document.getElementById("comment-btn").click();
-    }
-  });
+  console.log(owner + " " + profile.id);
 
   return (
     <>
@@ -64,13 +61,27 @@ function Feed({name, profle, post, desc, dark, id}) {
                       <span>
                         <img src="/images/x.png" alt="" />
                       </span>
-                      <span>
-                        <img src="/images/delete.png" alt="" /> Delete
-                      </span>
-
-                      <span>
-                        <img src="/images/edit.png" alt="" /> Edit
-                      </span>
+                        {
+                          owner === profle.id ? (
+                            <>
+                              <span>
+                                <img src="/images/delete.png" alt="" /> Delete
+                              </span>
+                              <span>
+                                <img src="/images/edit.png" alt="" /> Edit
+                              </span>
+                            </>
+                          ) : (
+                            <>
+                              <span>
+                                <img src="/images/delete.png" alt="" /> Hide
+                              </span>
+                              <span>
+                                <img src="/images/edit.png" alt="" /> Report
+                              </span>
+                            </>
+                          )
+                        }
                     </div>
                   )
                 }
@@ -148,8 +159,8 @@ function Feed({name, profle, post, desc, dark, id}) {
             <Input>
               <img src="/images/profile.jpg" alt="" />
               <div>
-                <input onChange={e => setComment(e.target.value)} id="comment-inp" type="text" placeholder='Write your comment here' />
-                <button onClick={PostComment} id="comment-btn">Comment</button>
+                <input onChange={e => setComment(e.target.value)} type="text" placeholder='Write your comment here' />
+                <button onClick={PostComment}><img src="/images/send.png" alt="" /></button>
                 <img src="/images/icit.png" alt="" />
                 <img src="/images/gf.png" alt="" />
                 <img src="/images/cam.png" alt="" />
@@ -399,13 +410,20 @@ const Input = styled.div`
     }
 
     &>button{
-      background-color: var(--txt-color);
+      background-color: transparent;
       color: white;
       border: none;
       margin-right: 10px;
       padding: 5px;
       border-radius: 5px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+
+      &>img{
+        width: 15px;
+        height: 15px;
+      }
     }
     
   }

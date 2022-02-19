@@ -9,7 +9,6 @@ function LogSignUp() {
     const [password, setPassword] = useState("");
     const [firstName, setFirstName] = useState("");
     const [surName, setSurName] = useState("");
-    const username = firstName + " " + surName;
 
     const login = async () => {
         await axiosInitial.post(`login/`, {
@@ -26,7 +25,6 @@ function LogSignUp() {
     }
 
     const signup = async () => {
-        console.log(username);
         await axiosInitial.post(`signup/`, {
             'username': surName,
             'first_name': firstName,
