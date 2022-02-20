@@ -19,6 +19,7 @@ function Feed({name, profle, post, desc, dark, id, owner}) {
     fetchComments();
   }, [id]);
 
+
   const PostComment = async () => {
     await axiosInstance.post(`/post/comment/`, {
       user: profile.id,
@@ -29,10 +30,11 @@ function Feed({name, profle, post, desc, dark, id, owner}) {
       await axiosInstance.get(`/post/comment/${id}/`).then(out => {
         setComments(out.data);
       })
+      document.querySelector("#comment-inp").value = "";
     })
+
   }
 
-  console.log(owner + " " + profile.id);
 
   return (
     <>
@@ -110,7 +112,7 @@ function Feed({name, profle, post, desc, dark, id, owner}) {
                 Fahimun Islam Lamia and 3 more others
               </div>
               <div onClick={e => setIsView(!isView)}>
-                3 Comments
+                {comments.length} Comments
               </div>
             </Details>
 
@@ -159,7 +161,7 @@ function Feed({name, profle, post, desc, dark, id, owner}) {
             <Input>
               <img src="/images/profile.jpg" alt="" />
               <div>
-                <input onChange={e => setComment(e.target.value)} type="text" placeholder='Write your comment here' />
+                <input onChange={e => setComment(e.target.value)} id="comment-inp" type="text" placeholder='Write your comment here' />
                 <button onClick={PostComment}><img src="/images/send.png" alt="" /></button>
                 <img src="/images/icit.png" alt="" />
                 <img src="/images/gf.png" alt="" />
@@ -290,8 +292,8 @@ const POST = styled.div`
   cursor: pointer;
   &>img{
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-height: 600px;
+    object-fit: contain;
     border-radius: 10px;
   }
 `

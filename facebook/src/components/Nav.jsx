@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
+import {useGlobalState} from '../state/provider';
 
 function Nav() {
     const [isDrop, setIsDrop] = useState(false);
     const [isDark, setIsDark] = useState(false);
+    const [{profile}] = useGlobalState();
 
     const logout = (e) => {
         localStorage.setItem("token", null);
         window.location.reload();
     }
+
+    const search = () => {
+        document.querySelector("#search").style.display = 'block';
+    }
+    
     return (
       <>
         <Container>
@@ -19,7 +26,8 @@ function Nav() {
                 </Link>
                 <SearchBox>
                     <img src="/images/search.png" alt="" />
-                    <input type="text" placeholder='Search' />
+                    <input onKeyUp={search} type="text" placeholder='Search' />
+                    <img id="search" src="/images/send.png" alt="" />
                 </SearchBox>
             </Left>
             <Center>
@@ -38,8 +46,8 @@ function Nav() {
             <Right>
                 <Link to="/profile">
                     <User>
-                        <img src="/images/profile.jpg" alt="" />
-                        <span>Rakibul</span>
+                        <img src={`http://127.0.0.1:8000${profile?.profile}`} alt="" />
+                        <span>{profile?.first_name + " " + profile?.last_name}</span>
                     </User>
                 </Link>
 
@@ -63,7 +71,7 @@ function Nav() {
                         </Dark>
 
                         <SetUser>
-                            <img src="/images/profile.jpg" alt="" />
+                            <img src={`http://127.0.0.1:8000${profile.profile}`} alt="" />
                             <div>
                                 <p>Rakibul Islam</p>
                                 <h6>See Your Profile</h6>
@@ -149,12 +157,13 @@ const Logo = styled.img`
 const SearchBox = styled.div`
     display: flex;
     align-items: center;
-    background: var(--bg-color);
+    background: #474747;
     width: 250px;
     border-radius: 60px;
     display: flex;
     align-items: center;
     padding: 0 15px;
+    color: white;
 
     &>img{
         width: 18px;
@@ -166,6 +175,12 @@ const SearchBox = styled.div`
         border: none;
         outline: none;
         padding: 8px;
+        color: white;
+    }
+
+    &>img:last-child{
+        cursor: pointer;
+        display: none;
     }
 
     @media screen and (max-width: 1050px){

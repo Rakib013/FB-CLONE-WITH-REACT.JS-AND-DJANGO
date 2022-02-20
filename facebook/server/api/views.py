@@ -50,6 +50,17 @@ class UserProfile(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+# Particular User Profile API View
+class UserProfileParticular(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id):
+        user = User.objects.get(id=id)
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 # All Posts API View
 class PostsView(APIView):
     authentication_classes = (TokenAuthentication,)
@@ -58,9 +69,9 @@ class PostsView(APIView):
     def get(self, request):
         data = Post.objects.all()
         serializer = PostSerializer(data, many=True)
-        user_post = request.user.post_set.all()
+        user_post = Post.objects.filter(user=request.user)
         user_post_serializer = PostSerializer(user_post, many=True)
-        return Response({"All": serializer.data, "User Post": user_post_serializer.data}, status=status.HTTP_200_OK)
+        return Response({"All": serializer.data, "UserPost": user_post_serializer.data}, status=status.HTTP_200_OK)
 
     def post(self, request):
         serializer = PostSerializer(data=request.data)
@@ -94,4 +105,6 @@ class PostComment(APIView):
             return Response("Comment successfully created", status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 

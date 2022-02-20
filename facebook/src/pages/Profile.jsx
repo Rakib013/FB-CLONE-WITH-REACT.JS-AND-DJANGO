@@ -1,21 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Post from '../components/Post';
 import Feed from '../components/Feed';
+import {useGlobalState} from '../state/provider';
+import { axiosInstance } from '../api/axios';
+
 
 function Profile({ user, isFriend, isRequested }) {
+    const [{profile}] = useGlobalState();
+    const [posts, setPosts] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
+        const res = await axiosInstance.get(`posts/`);
+        setPosts(res.data.UserPost);
+        }
+        fetchData();
+    }, []);
+    console.log(posts);
   return (
     <>
         <Container>
             <Cover src="/images/cover.png" />
             <User>
-                <img src="/images/profile.jpg" alt="" />
+                <img src={`http://127.0.0.1:8000${profile?.profile}`} alt="" />
                 <span></span>
             </User>
 
             <Details>
                 <div>
-                    <h1>Rakibul Islam</h1>
+                    <h1>{profile?.first_name + " " + profile?.last_name}</h1>
                     <h4>293 friends, 57 mutual friends</h4>
                     <div>
                         <img src="/images/profile.png" alt="" />
@@ -185,10 +198,13 @@ function Profile({ user, isFriend, isRequested }) {
                 </Left>
                 <Right>
                     <Post profile={true} />
-                    <Feed dark={true} name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/fahimun.jpeg" />
-                    <Feed dark={true} name="Chris Harington" desc="Actually i don't want to write know" profile="/images/status-1.png" post="/images/profile.jpg" />
-                    <Feed dark={true} name="Nick Jonas" desc="Actually i don't want to write know" profile="/images/profile.png" post="/images/nushrat.jpeg" />
-                    <Feed dark={true} name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/fahimun.jpeg" />
+                    
+                    {
+                        posts?.map((post, index) => (
+                            <Feed key={index} dark={true} id={post.id} name={post?.profile?.first_name + post?.profile?.last_name} desc={post.title} profle={`http://127.0.0.1:8000${post?.profile?.profile}`} owner={post?.profile?.id} post={`http://127.0.0.1:8000${post.post}`} />
+                        ))
+                    }
+                    
                 </Right>
             </Content>
         </Bottom>

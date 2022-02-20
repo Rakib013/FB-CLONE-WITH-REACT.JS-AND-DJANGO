@@ -6,20 +6,13 @@ import Room from '../components/Room';
 import Feed from '../components/Feed';
 import LeftSideBar from '../components/LeftSideBar';
 import RightSideBar from '../components/RightSideBar';
-import {axiosInstance} from '../api/axios';
+import {useGlobalState} from '../state/provider';
 
 
 
 function Home() {
-    const [posts, setPosts] = React.useState([]);
+    const [{profile, posts}] = useGlobalState();
 
-    React.useEffect(() => {
-        const fetchPosts = async () => {
-            const res = await axiosInstance.get('/posts/');
-            setPosts(res.data.All);
-        }
-        fetchPosts();
-    }, []);
     return (
         <>
             <Container>
@@ -29,7 +22,7 @@ function Home() {
                 <Center>
                     <div>
                         <First className='first'>
-                            <img src="/images/profile.jpg" alt="" />
+                            <img src={`http://127.0.0.1:8000${profile.profile}`} alt="" />
                             <div>
                                 <img src="/images/upload.png" alt="" />
                                 <p>Create Post</p>
