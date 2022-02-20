@@ -23,9 +23,8 @@ const App = () => {
       await axiosInstance.get('/posts').then(res => {
         dispatch({
           type: 'POSTS',
-          posts: res.data.All
+          posts: res.data.All,
         })
-        console.log(res.data.All)
       })
     }
     fetchProfile();

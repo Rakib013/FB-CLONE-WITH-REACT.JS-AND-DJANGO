@@ -15,7 +15,7 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 posts: action.posts,
-                };
+            };
         default:
             return state;
     }

@@ -10,7 +10,7 @@ function LeftSideBar() {
         <User>
             <img src={`http://127.0.0.1:8000${profile.profile}`} alt="" />
             <Link to="/profile">
-                <span>Rakibul Islam</span>
+                <span>{profile?.first_name + " " + profile?.last_name}</span>
             </Link>
         </User>
         <Links>
