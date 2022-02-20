@@ -32,7 +32,6 @@ function Feed({name, profle, post, desc, dark, id, owner}) {
     })
   }
 
-  console.log(owner + " " + profile.id);
 
   return (
     <>

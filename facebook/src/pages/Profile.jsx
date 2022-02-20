@@ -2,8 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import Post from '../components/Post';
 import Feed from '../components/Feed';
+import {useGlobalState} from '../state/provider';
 
 function Profile({ user, isFriend, isRequested }) {
+    const [{posts}] = useGlobalState();
   return (
     <>
         <Container>
@@ -185,10 +187,14 @@ function Profile({ user, isFriend, isRequested }) {
                 </Left>
                 <Right>
                     <Post profile={true} />
-                    <Feed dark={true} name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/fahimun.jpeg" />
-                    <Feed dark={true} name="Chris Harington" desc="Actually i don't want to write know" profile="/images/status-1.png" post="/images/profile.jpg" />
-                    <Feed dark={true} name="Nick Jonas" desc="Actually i don't want to write know" profile="/images/profile.png" post="/images/nushrat.jpeg" />
-                    <Feed dark={true} name="Fahimun Islam Lamiha" desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/fahimun.jpeg" />
+                    
+                    {
+                        posts?.map((post, index) => (
+                            //<Feed key={index} dark={true} name={post.profile.first_name + " " + post.profile.last_name} desc="Actually i don't want to write know" profile="/images/profile.jpg" post="/images/fahimun.jpeg" />
+                            <Feed key={index} id={post.id} name={post?.profile?.first_name + post?.profile?.last_name} desc={post.title} profle={`http://127.0.0.1:8000${post?.profile?.profile}`} owner={post?.profile?.id} post={`http://127.0.0.1:8000${post.post}`} />
+                        ))
+                    }
+                    
                 </Right>
             </Content>
         </Bottom>

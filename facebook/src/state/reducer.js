@@ -1,6 +1,7 @@
 
 export const initialstate = {
     profile: null,
+    posts: null,
 }
 
 const reducer = (state, action) => {
@@ -10,6 +11,11 @@ const reducer = (state, action) => {
                 ...state,
                 profile: action.profile,
             };
+        case "POSTS":
+            return {
+                ...state,
+                posts: action.posts,
+                };
         default:
             return state;
     }

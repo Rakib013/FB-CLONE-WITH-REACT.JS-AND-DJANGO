@@ -8,7 +8,6 @@ function Post({profiles}) {
     const [isPost, setIsPost] = useState(false);
     const [shareFile, setShareFile] = useState("");
     const [title, setTitle] = useState("");
-    console.log(profile);
 
     const handleChange = (e) => {
         const image = e.target.files[0]
@@ -35,7 +34,7 @@ function Post({profiles}) {
         <Container dark={profiles}>
             <Content>
                 <div onClick={e => setIsPost(!isPost)}>
-                    <img src="/images/profile.jpg" alt="" />
+                    <img src={`http://127.0.0.1:8000${profile?.profile}`} alt="" />
                     <button>What's on your mind, Rakibul?</button>
                 </div>
                 <Last>

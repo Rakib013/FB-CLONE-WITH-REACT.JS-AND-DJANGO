@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
+import {useGlobalState} from '../state/provider';
 
 function LeftSideBar() {
-  return (
+    const [{profile}] = useGlobalState();
+    return (
     <Left>
         <User>
-            <img src="/images/profile.jpg" alt="" />
+            <img src={`http://127.0.0.1:8000${profile.profile}`} alt="" />
             <Link to="/profile">
                 <span>Rakibul Islam</span>
             </Link>

@@ -19,10 +19,16 @@ const App = () => {
           profile: res.data
         })
       })
-      
+
+      await axiosInstance.get('/posts').then(res => {
+        dispatch({
+          type: 'POSTS',
+          posts: res.data.All
+        })
+        console.log(res.data.All)
+      })
     }
     fetchProfile();
-
   }, [dispatch]);
 
   return (
