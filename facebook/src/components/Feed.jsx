@@ -42,11 +42,11 @@ function Feed({name, profle, post, desc, dark, id, owner}) {
           <Content>
             <Profile>
               <div>
-                <Link to="/profile">
+                <Link to={`/friends/profile/${owner}`}>
                   <img src={profle} alt="" />
                 </Link>
                 <div>
-                  <Link to="/profile">
+                  <Link to={`/friends/profile/${owner}`}>
                     <h5>{name}</h5>
                   </Link>
                   <div>

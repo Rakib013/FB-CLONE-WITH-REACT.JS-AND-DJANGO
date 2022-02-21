@@ -4,19 +4,25 @@ import Post from '../components/Post';
 import Feed from '../components/Feed';
 import {useGlobalState} from '../state/provider';
 import { axiosInstance } from '../api/axios';
+import { useParams } from 'react-router-dom';
 
 
-function Profile({ user, isFriend, isRequested }) {
-    const [{profile}] = useGlobalState();
+function Profile({isFriend, isRequested, pid }) {
+    const [profile, setProfile] = useState([]);
     const [posts, setPosts] = useState([]);
+    
+    const {id} = useParams();
+    
+    let user = pid == id ? true : false;
+
     useEffect(() => {
-        const fetchData = async () => {
-        const res = await axiosInstance.get(`posts/`);
-        setPosts(res.data.UserPost);
-        }
-        fetchData();
-    }, []);
-    console.log(posts);
+        const fetchProfile = (async () => {
+            const res = await axiosInstance.get(`particular/profile/${id}/`);
+            setProfile(res.data);
+        })
+        fetchProfile();        
+    }, [id]);
+
   return (
     <>
         <Container>
@@ -197,13 +203,17 @@ function Profile({ user, isFriend, isRequested }) {
                     </Friends>
                 </Left>
                 <Right>
-                    <Post profile={true} />
-                    
                     {
+                        user && (
+                            <Post profile={true} />
+                        )
+                    }
+                    
+                    {/* {
                         posts?.map((post, index) => (
                             <Feed key={index} dark={true} id={post.id} name={post?.profile?.first_name + post?.profile?.last_name} desc={post.title} profle={`http://127.0.0.1:8000${post?.profile?.profile}`} owner={post?.profile?.id} post={`http://127.0.0.1:8000${post.post}`} />
                         ))
-                    }
+                    } */}
                     
                 </Right>
             </Content>

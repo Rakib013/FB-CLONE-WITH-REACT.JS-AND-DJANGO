@@ -35,8 +35,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={profile ? <><Nav /><Home /></> : <Navigate to="/LoginSignup" />}/>
-          <Route path="/profile" element={<><Nav /><Profile user={true} /></>}/>
-          <Route path="/friends/profile" element={<><Nav /><Profile user={false} /></>}/>
+          <Route path="/friends/profile/:id" element={<><Nav /><Profile pid={profile?.id} /></>}/>
           <Route path="/photo/view" element={<><PostView /></>} />
           <Route path="/LoginSignup" element={!profile ? <><LogSignUp /></> : <Navigate to="/" />}/>
         </Routes>

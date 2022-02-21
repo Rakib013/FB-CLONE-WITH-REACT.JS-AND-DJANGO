@@ -44,7 +44,7 @@ function Nav() {
                 </div>
             </Center>
             <Right>
-                <Link to="/profile">
+                <Link to={`/friends/profile/${profile?.id}`}>
                     <User>
                         <img src={`http://127.0.0.1:8000${profile?.profile}`} alt="" />
                         <span>{profile?.first_name + " " + profile?.last_name}</span>
