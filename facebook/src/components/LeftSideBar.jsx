@@ -7,12 +7,12 @@ function LeftSideBar() {
     const [{profile}] = useGlobalState();
     return (
     <Left>
-        <User>
-            <img src={`http://127.0.0.1:8000${profile.profile}`} alt="" />
-            <Link to="/profile">
-                <span>{profile?.first_name + " " + profile?.last_name}</span>
+            <Link to={`/friends/profile/${profile?.id}`}>
+                <User>
+                    <img src={`http://127.0.0.1:8000${profile.profile}`} alt="" />
+                        <span>{profile?.first_name + " " + profile?.last_name} </span>
+                </User>
             </Link>
-        </User>
         <Links>
             <a href="#news"><img src="/images/lt.png" alt="" />Latest News</a>
             <a href="#friends"><img src="/images/friends.png" alt="" />Friends</a>
@@ -132,6 +132,7 @@ const User = styled.div`
     padding: 3px 0px 3px 2px;
     margin-left: 13px;
     transition: 0.4s;
+    color: var(--font-color);
     &>img{
         width: 40px;
         border-radius: 50%;
