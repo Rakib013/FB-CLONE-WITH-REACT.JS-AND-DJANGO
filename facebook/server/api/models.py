@@ -34,7 +34,7 @@ class Post(models.Model):
     content = models.TextField(default="", blank=True, null=True)
     post = models.ImageField(upload_to='user/post/', blank=True, null=True)
     react = models.IntegerField(default=0)
-    isReact = models.ManyToManyField(User, blank=True, related_name='isReact')
+    isReacted = models.ManyToManyField(User, blank=True, related_name='isReacted')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
