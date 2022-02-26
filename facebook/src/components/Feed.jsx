@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import {axiosInstance} from '../api/axios';
 import { useGlobalState } from '../state/provider';
+import react from 'react';
 
-function Feed({name, profle, post, desc, dark, id, owner}) {
+function Feed({name, profle, post, desc, dark, id, owner, react}) {
   const [isView, setIsView] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [comment, setComment] = useState("");
@@ -64,7 +65,7 @@ function Feed({name, profle, post, desc, dark, id, owner}) {
                         <img src="/images/x.png" alt="" />
                       </span>
                         {
-                          owner === profle.id ? (
+                          owner == profile.id ? (
                             <>
                               <span>
                                 <img src="/images/delete.png" alt="" /> Delete
@@ -109,7 +110,7 @@ function Feed({name, profle, post, desc, dark, id, owner}) {
               <div>
                 <img src="/images/love.png" alt="" />
                 <img src="/images/lb.png" alt="" />
-                Fahimun Islam Lamia and 3 more others
+                Fahimun Islam Lamia and {react} more others
               </div>
               <div onClick={e => setIsView(!isView)}>
                 {comments.length} Comments
@@ -146,7 +147,7 @@ function Feed({name, profle, post, desc, dark, id, owner}) {
                 {
                   comments.map(comment => (
                     <Comment key={comment?.id}>
-                      <img src="/images/fahimun.jpeg" alt="" />
+                      <img src={`http://127.0.0.1:8000${comment.profile.profile}`} alt="" />
                       <div>
                         <h5>{comment.profile.username}</h5>
                         <h6>{comment.comment}</h6>

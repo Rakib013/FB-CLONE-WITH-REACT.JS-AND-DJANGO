@@ -20,7 +20,15 @@ function Profile({isFriend, isRequested, pid }) {
             const res = await axiosInstance.get(`particular/profile/${id}/`);
             setProfile(res.data);
         })
-        fetchProfile();        
+        fetchProfile();
+
+        const fetchPosts = (async () => {
+            const res = await axiosInstance.get(`particularuser/posts/${id}/`);
+            setPosts(res.data);
+        })
+
+        fetchPosts();
+
     }, [id]);
 
   return (
@@ -209,11 +217,11 @@ function Profile({isFriend, isRequested, pid }) {
                         )
                     }
                     
-                    {/* {
+                    {
                         posts?.map((post, index) => (
                             <Feed key={index} dark={true} id={post.id} name={post?.profile?.first_name + post?.profile?.last_name} desc={post.title} profle={`http://127.0.0.1:8000${post?.profile?.profile}`} owner={post?.profile?.id} post={`http://127.0.0.1:8000${post.post}`} />
                         ))
-                    } */}
+                    }
                     
                 </Right>
             </Content>

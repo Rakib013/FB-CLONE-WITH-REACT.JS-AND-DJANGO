@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.views import Token
 from django.contrib.auth import authenticate, login
+from sqlalchemy import false
 from . serializers import *
 from rest_framework import status
 
@@ -80,6 +81,36 @@ class PostsView(APIView):
             return Response("Post successfully created", status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class PostLike(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, id):
+        post = Post.objects.get(id=id)
+        if post.isReact == request.user:
+            post.isReact = None
+            post.react -= 1
+            post.save()
+            return Response("Post successfully liked", status=status.HTTP_200_OK)
+        else:
+            post.isReact = request.user
+            post.react += 1
+            post.save()
+            return Response("Post successfully liked", status=status.HTTP_200_OK)
+
+
+# Particular Post API View
+class ParticularUserPost(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id):
+        user = User.objects.get(id=id)
+        data = user.post_set.all()
+        serializer = PostSerializer(data, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 # Single Post API View

@@ -39,7 +39,7 @@ function Home() {
 
                     {
                         posts?.map((data, index) => (
-                            <Feed key={index} id={data.id} name={data.profile.first_name + data.profile.last_name} desc={data.title} profle={`http://127.0.0.1:8000${data.profile.profile}`} owner={data.profile.id} post={`http://127.0.0.1:8000${data.post}`} />
+                            <Feed key={index} id={data.id} name={data.profile.first_name + data.profile.last_name} react={data.react} desc={data.title} profle={`http://127.0.0.1:8000${data.profile.profile}`} owner={data.profile.id} post={`http://127.0.0.1:8000${data.post}`} />
                         ))
                     }
                     

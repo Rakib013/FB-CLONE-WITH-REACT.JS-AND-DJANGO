@@ -16,12 +16,10 @@ function LogSignUp() {
             'password': password
         }).then(res => {
             localStorage.setItem('token', res.data.Token);
+            window.location.reload();
+        }).catch(err => {
             setIsError(true);
         });
-
-        if(isError){
-            window.location.reload();
-        }   
     }
 
     const signup = async () => {
