@@ -18,12 +18,16 @@ class UserSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     profile = serializers.SerializerMethodField()
+    reacted = serializers.SerializerMethodField()
     class Meta:
         model = Post
-        fields = [ "id", "profile", "user", "title", "content", "post", "react", "created_at", "updated_at"]
+        fields = [ "id", "profile", "user", "title", "content", "post", "react", "reacted", "created_at", "updated_at"]
 
     def get_profile(self, obj):
         return UserSerializer(obj.user, many=False).data
+    
+    def get_reacted(self, obj):
+        return UserSerializer(obj.isReacted, many=True).data
 
 
 class CommentSerializer(serializers.ModelSerializer):

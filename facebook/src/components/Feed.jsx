@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import {axiosInstance} from '../api/axios';
 import { useGlobalState } from '../state/provider';
-import react from 'react';
 
-function Feed({name, profle, post, desc, dark, id, owner, react}) {
+function Feed({name, profle, post, desc, dark, id, owner, react, reacted, objct}) {
   const [isView, setIsView] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
-  const [{profile}] = useGlobalState();
+  const [isLiked, setIsLiked] = useState(false);
+  const [{profile}, dispatch] = useGlobalState();
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -18,7 +18,13 @@ function Feed({name, profle, post, desc, dark, id, owner, react}) {
       setComments(res.data);
     }
     fetchComments();
-  }, [id]);
+
+    objct?.map(data => {
+      if(data?.id == profile?.id) {
+        setIsLiked(true);
+      }
+    })
+  }, [id, objct, profile]);
 
 
   const PostComment = async () => {
@@ -35,7 +41,17 @@ function Feed({name, profle, post, desc, dark, id, owner, react}) {
     })
   }
 
-
+  const LikePost = async () => {
+    await axiosInstance.post(`post/like/${id}/`).then(async res => {
+      await axiosInstance.get('/posts').then(res => {
+        dispatch({
+          type: 'POSTS',
+          posts: res.data.All,
+        })
+      })
+      setIsLiked(!isLiked);
+    })
+  }
 
   return (
     <>
@@ -108,9 +124,13 @@ function Feed({name, profle, post, desc, dark, id, owner, react}) {
 
             <Details>
               <div>
-                <img src="/images/love.png" alt="" />
-                <img src="/images/lb.png" alt="" />
-                Fahimun Islam Lamia and {react} more others
+                {reacted && (
+                  <>
+                    <img src="/images/love.png" alt="" />
+                    <img src="/images/lb.png" alt="" />
+                    {reacted.first_name + " " + reacted.last_name}
+                  </>
+                )} {react>1 ? "and " + (react-1) + " others" : ""}
               </div>
               <div onClick={e => setIsView(!isView)}>
                 {comments.length} Comments
@@ -118,18 +138,29 @@ function Feed({name, profle, post, desc, dark, id, owner, react}) {
             </Details>
 
             <Action>
-              <button>
-                <img src="/images/lik.png" alt="" />
-                <p>Like</p>
+              <button onClick={LikePost}>
+                {
+                  isLiked ? (
+                    <>
+                      <img src="/images/love.png" alt="" />
+                      <p style={{color: "red"}}>Liked</p>
+                    </>
+                  ) : (
+                    <>
+                      <img src="/images/like-blue.png" alt="" />
+                      <p>Like</p>
+                    </>
+                  )
+                }
               </button>
 
               <button onClick={e => setIsView(!isView)}>
-                <img src="/images/cmt.png" alt="" />
+                <img src="/images/comments.png" alt="" />
                 <p>Comment</p>
               </button>
 
               <button>
-                <img src="/images/shr.png" alt="" />
+                <img src="/images/share.png" alt="" />
                 <p>Share</p>
               </button>
 

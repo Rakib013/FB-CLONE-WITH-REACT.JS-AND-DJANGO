@@ -30,6 +30,7 @@ const App = () => {
     fetchProfile();
   }, [dispatch]);
 
+
   return (
     <>
       <BrowserRouter>
