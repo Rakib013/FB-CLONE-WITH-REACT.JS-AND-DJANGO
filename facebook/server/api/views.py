@@ -89,16 +89,17 @@ class PostLike(APIView):
 
     def post(self, request, id):
         post = Post.objects.get(id=id)
-        if post.isReact == request.user:
-            post.isReact = None
+        if post.isReacted.filter(id=request.user.id).exists():
+            post.isReacted.remove(request.user)
             post.react -= 1
             post.save()
-            return Response("Post successfully liked", status=status.HTTP_200_OK)
+            return Response("Post successfully disliked", status=status.HTTP_200_OK)
         else:
-            post.isReact = request.user
+            post.isReacted.add(request.user)
             post.react += 1
             post.save()
             return Response("Post successfully liked", status=status.HTTP_200_OK)
+        
 
 
 # Particular Post API View

@@ -33,8 +33,8 @@ function Feed({name, profle, post, desc, dark, id, owner, react}) {
       })
       document.querySelector("#comment-inp").value = "";
     })
-
   }
+
 
 
   return (
