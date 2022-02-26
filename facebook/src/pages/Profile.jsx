@@ -10,8 +10,13 @@ import { useParams } from 'react-router-dom';
 function Profile({isFriend, isRequested, pid }) {
     const [profile, setProfile] = useState([]);
     const [posts, setPosts] = useState([]);
+    const [shareFile, setShareFile] = useState("");
+
+    const [update, setUpdate] = useState(false);
     
     const {id} = useParams();
+    //ksdfjdskfjakfjsafadskjfaskfjaksjfksjfkdjfdkjfkdjfdkfjdkfjdskfjakjfkasjfkjfkasj
+    isRequested = true
     
     let user = pid == id ? true : false;
 
@@ -30,6 +35,16 @@ function Profile({isFriend, isRequested, pid }) {
         fetchPosts();
 
     }, [id]);
+
+    const handleChange = (e) => {
+        const image = e.target.files[0]
+    
+        if(image === '' || image === undefined){
+            alert(`Not an image, the file is a ${typeof{ image }}`);
+            return;
+        }
+        setShareFile(image)
+    }
 
   return (
     <>
@@ -60,7 +75,7 @@ function Profile({isFriend, isRequested, pid }) {
                     user ? (
                         <div>
                             <button><img src="/images/create.png" alt="" /> Add To Story</button>
-                            <button><img src="/images/edit.gif" alt="" /> Edit Profile</button>
+                            <button onClick={e => setUpdate(!update)}><img src="/images/edit.gif" alt="" /> Edit Profile</button>
                         </div>
                     ) : (
                         <div>
@@ -213,20 +228,51 @@ function Profile({isFriend, isRequested, pid }) {
                 <Right>
                     {
                         user && (
-                            <Post profile={true} />
+                            <Post profiles={true} />
                         )
                     }
                     
                     {
                         posts?.map((post, index) => (
-                            <Feed key={index} dark={true} id={post.id} name={post?.profile?.first_name + post?.profile?.last_name} desc={post.title} profle={`http://127.0.0.1:8000${post?.profile?.profile}`} owner={post?.profile?.id} post={`http://127.0.0.1:8000${post.post}`} />
+                            <Feed key={index} dark={true} id={post.id} name={post?.profile?.first_name + post?.profile?.last_name} react={post.react} reacted={post.reacted[0]} objct={post?.reacted} desc={post.title} profle={`http://127.0.0.1:8000${post?.profile?.profile}`} owner={post?.profile?.id} post={`http://127.0.0.1:8000${post.post}`} />
                         ))
                     }
                     
                 </Right>
             </Content>
         </Bottom>
+        
+    {
+        update && (
+            <Update>
+                <Head>
+                    <h2>Edit Profile</h2>
+                    <p onClick={e => setUpdate(!update)}>X</p>
+                </Head>
 
+                <Body>
+                    <div>
+                        <h3>Profile Pictue</h3>
+                        <span onClick={e => document.getElementById("file").click()}>Edit</span>
+                        <input onChange={handleChange} style={{display: "none"}} type="file" id="file" />
+                    </div>
+                    <div>
+                        {
+                            !shareFile ? (
+                                <img src={`http://127.0.0.1:8000${profile?.profile}`} alt="" />
+                            ) : (
+                                <img src={URL.createObjectURL(shareFile)} alt="" />
+                            )
+                        }
+                    </div>
+                </Body>
+
+                <Submit>
+                    Update
+                </Submit>
+            </Update>
+        )
+    }
 
     </>
   );
@@ -515,4 +561,93 @@ const Friends = styled.div`
             }
         }
     }
+`
+
+const Update = styled.div`
+    background-color: #1f1e1e;
+    top: 100px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    position: fixed;
+    z-index: 999999;
+    border-radius: 10px;
+`
+
+const Head = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 10px;
+    border-bottom: 1px solid #696969;
+
+    &>h2{
+        font-size: 20px;
+        font-weight: 300;
+        margin-left: auto;
+    }
+
+    &>p{
+        margin-left: auto;
+        padding: 3px 10px;
+        background-color: #666565;
+        border-radius: 50%;
+        cursor: pointer;
+        font-weight: 300;
+    }
+`
+
+const Body = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+
+    &>div:first-child{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &>h3{
+            color: white;
+            font-weight: 300;
+        }
+
+        &>span{
+            color: #0a66c2;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    }
+
+    &>div:last-child{
+        display: flex;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px 0;
+        &>img{
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+    }
+`
+
+const Submit = styled.button`
+    display: block;
+    width: 80%;
+    padding: 10px 0;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+    color: white;
+    background-color: #0a66c2;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
 `

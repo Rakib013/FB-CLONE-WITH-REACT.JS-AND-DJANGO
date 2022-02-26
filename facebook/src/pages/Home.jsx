@@ -34,12 +34,12 @@ function Home() {
                         <Story className='fiveth' image="/images/status-2.png" status="/images/status-4.png" info="Potter" />
                         <Story className='last' image="/images/status-4.png" status="/images/nushrat.jpeg" info="Harry" />
                     </div>
-                    <Post profile={false} />
+                    <Post profiles={false} />
                     <Room />
 
                     {
                         posts?.map((data, index) => (
-                            <Feed key={index} id={data.id} name={data.profile.first_name + data.profile.last_name} react={data.react} desc={data.title} profle={`http://127.0.0.1:8000${data.profile.profile}`} owner={data.profile.id} post={`http://127.0.0.1:8000${data.post}`} />
+                            <Feed key={index} id={data.id} name={data.profile.first_name + data.profile.last_name} react={data.react} reacted={data.reacted[0]} objct={data?.reacted} desc={data.title} profle={`http://127.0.0.1:8000${data.profile.profile}`} owner={data.profile.id} post={`http://127.0.0.1:8000${data.post}`} />
                         ))
                     }
                     
