@@ -10,6 +10,7 @@ function Feed({name, profle, post, desc, dark, id, owner, react, reacted, objct}
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
+  const [hide, setHide] = useState(false);
   const [{profile}, dispatch] = useGlobalState();
 
   useEffect(() => {
@@ -55,7 +56,7 @@ function Feed({name, profle, post, desc, dark, id, owner, react, reacted, objct}
 
   return (
     <>
-      <Container dark={dark}>
+      <Container hide={hide} dark={dark}>
           <Content>
             <Profile>
               <div>
@@ -93,7 +94,7 @@ function Feed({name, profle, post, desc, dark, id, owner, react, reacted, objct}
                           ) : (
                             <>
                               <span>
-                                <img src="/images/delete.png" alt="" /> Hide
+                                <img onClick={e=> setHide(true)} src="/images/delete.png" alt="" /> Hide
                               </span>
                               <span>
                                 <img src="/images/edit.png" alt="" /> Report
@@ -210,6 +211,7 @@ function Feed({name, profle, post, desc, dark, id, owner, react, reacted, objct}
 export default Feed;
 
 const Container = styled.div`
+  display: ${props => props.hide ? "none" : "bolck"};
   margin-top: 20px;
   background-color: ${props => props.dark ? 'var(--txt-color)' : 'var(--bg-color)'};
   padding: 10px;

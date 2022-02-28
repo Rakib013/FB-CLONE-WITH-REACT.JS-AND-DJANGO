@@ -16,7 +16,12 @@ function LogSignUp() {
             'password': password
         }).then(res => {
             localStorage.setItem('token', res.data.Token);
-            window.location.reload();
+            if(res.data.Token) {
+                setIsError(false);
+                window.location.href = "/";
+            }else{
+                setIsError(true);
+            }
         }).catch(err => {
             setIsError(true);
         });

@@ -7,18 +7,17 @@ import { axiosInstance } from '../api/axios';
 import { useParams } from 'react-router-dom';
 
 
-function Profile({isFriend, isRequested, pid }) {
+function Profile({friends, requests, pid }) {
     const [profile, setProfile] = useState([]);
     const [posts, setPosts] = useState([]);
     const [shareFile, setShareFile] = useState("");
     const [cover, setCover] = useState("");
+    const [isRequested, setIsRequested] = useState(false);
+    const [isFriend, setIsFriend] = useState(false);
 
     const [update, setUpdate] = useState(false);
     
     const {id} = useParams();
-    //ksdfjdskfjakfjsafadskjfaskfjaksjfksjfkdjfdkjfkdjfdkfjdkfjdskfjakjfkasjfkjfkasj
-    isRequested = true
-    
     let user = pid == id ? true : false;
 
     useEffect(() => {
@@ -32,10 +31,21 @@ function Profile({isFriend, isRequested, pid }) {
             const res = await axiosInstance.get(`particularuser/posts/${id}/`);
             setPosts(res.data);
         })
-
         fetchPosts();
 
-    }, [id]);
+        friends?.map(friend => {
+            if(friend == id){
+                setIsFriend(true);
+            }
+        })
+
+        requests?.map(request => {
+            if(request == id){
+                setIsRequested(true);
+            }
+        })
+
+    }, [id, friends, requests]);
 
     const handleChange = (e) => {
         const image = e.target.files[0]
@@ -67,6 +77,23 @@ function Profile({isFriend, isRequested, pid }) {
             formData.append('coverPic', cover, cover.name);
         }
         await axiosInstance.post(`profile/`, formData).then((res) => {
+            console.log(res.data);
+            window.location.reload();
+        })
+    }
+
+    // Friend Request Sent, Delete Request
+    const sent = async (e) => {
+        e.preventDefault();
+        await axiosInstance.post(`friend/request/${id}/`).then((res) => {
+            console.log(res.data);
+            window.location.reload();
+        })
+    }
+
+    const cancle = async (e) => {
+        e.preventDefault();
+        await axiosInstance.delete(`friend/request/${id}/`).then((res) => {
             console.log(res.data);
             window.location.reload();
         })
@@ -112,9 +139,9 @@ function Profile({isFriend, isRequested, pid }) {
                                 <>
                                     {
                                         isRequested ? (
-                                            <button><img src="/images/add-friends.png" alt="" />Add Friend</button>
-                                        ) : (
-                                            <button><img src="/images/shr.png" alt="" />Cancle request</button>
+                                            <button onClick={cancle}><img src="/images/shr.png" alt="" />Cancle request</button>
+                                            ) : (
+                                            <button onClick={sent}><img src="/images/add-friends.png" alt="" />Add Friend</button>
                                         )
                                     }
                                 </>
