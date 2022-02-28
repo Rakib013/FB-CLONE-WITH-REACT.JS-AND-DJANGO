@@ -4,9 +4,15 @@ from . models import *
 
 
 class UserSerializer(serializers.ModelSerializer):
+    requests = serializers.SerializerMethodField()
+    friend = serializers.SerializerMethodField()
     class Meta:
         model = User
-        fields = "__all__"
+        fields = ["id", "password", 
+        "last_login", "is_superuser", 
+        "username", "first_name", "last_name", 
+        "is_staff", "is_active", "date_joined", "profile", "requests", 
+        "coverPic", "nickName", "bio", "email", "groups", "user_permissions", "friends", "friend", "requestedFriend"]
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
@@ -14,12 +20,20 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         token = Token.objects.create(user=user)
         return token.key
+    
+    def get_requests(self, obj):
+        return UpdateUserSerializer(obj.requestedFriend, many=True).data
+
+    def get_friend(self, obj):
+        return UpdateUserSerializer(obj.friends, many=True).data
 
 
 class UpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "profile", "coverPic", "bio"]
+        fields = ["id", "first_name", "last_name", "profile", "coverPic", "bio"]
+
+
 
 
 class PostSerializer(serializers.ModelSerializer):

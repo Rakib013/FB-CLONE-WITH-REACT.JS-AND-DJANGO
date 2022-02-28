@@ -14,6 +14,7 @@ function Profile({friends, requests, pid }) {
     const [cover, setCover] = useState("");
     const [isRequested, setIsRequested] = useState(false);
     const [isFriend, setIsFriend] = useState(false);
+    const [unFriend, setUnFriend] = useState(false);
 
     const [update, setUpdate] = useState(false);
     
@@ -134,7 +135,20 @@ function Profile({friends, requests, pid }) {
                         <div>
                         {
                             isFriend ? (
-                                <button><img src="/images/comments.png" alt="" /> Friends</button>
+                                <>
+                                    <button onClick={e=> setUnFriend(!unFriend)} style={{position: "relative"}}><img src="/images/comments.png" alt="" /> Friends</button>
+                                    {
+                                        unFriend && (
+                                            <Unfriend>
+                                                <img src="/images/unfriend.png" alt="" />
+                                                <button onClick={async e=>{
+                                                    await axiosInstance.delete(`friend/accept/${id}/`);
+                                                    window.location.reload();
+                                                }}>Unfriend</button>
+                                            </Unfriend>
+                                        )
+                                    }
+                                </>
                             ) : (
                                 <>
                                     {
@@ -758,7 +772,6 @@ const Body2 = styled.div`
     }
 `
 
-
 const Submit = styled.button`
     display: block;
     width: 80%;
@@ -776,5 +789,29 @@ const Submit = styled.button`
     &:hover{
         cursor: pointer;
         background-color: #096dd1;
+    }
+`
+
+const Unfriend = styled.div`
+    position: absolute;
+    margin-top: 40px;
+    display: flex;
+    background-color: #1c1e21;
+    padding: 10px;
+    border-radius: 5px;
+
+    &>img{
+        color: white;
+        width: 30px;
+    }
+
+    &>button{
+        margin-left: 5px;
+        background-color: #31353b;
+        border: none;
+        padding: 3px 10px;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
     }
 `
