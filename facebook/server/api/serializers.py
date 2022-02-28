@@ -16,6 +16,12 @@ class UserSerializer(serializers.ModelSerializer):
         return token.key
 
 
+class UpdateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "profile", "coverPic", "bio"]
+
+
 class PostSerializer(serializers.ModelSerializer):
     profile = serializers.SerializerMethodField()
     reacted = serializers.SerializerMethodField()

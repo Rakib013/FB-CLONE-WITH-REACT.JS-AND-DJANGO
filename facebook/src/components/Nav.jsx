@@ -233,6 +233,7 @@ const User = styled.div`
     &>img{
         margin-right: 5px;
         width: 40px;
+        height: 40px;
         object-fit: cover;
         border-radius: 50%;
         cursor: pointer;

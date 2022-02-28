@@ -126,7 +126,9 @@ const Content = styled.div`
         display: flex;
         align-items: center;
         &>img{
+            object-fit: cover;
             width: 45px;
+            height: 45px;
             border-radius: 50%;
         }
         &>button{

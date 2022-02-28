@@ -11,6 +11,7 @@ function Profile({isFriend, isRequested, pid }) {
     const [profile, setProfile] = useState([]);
     const [posts, setPosts] = useState([]);
     const [shareFile, setShareFile] = useState("");
+    const [cover, setCover] = useState("");
 
     const [update, setUpdate] = useState(false);
     
@@ -46,10 +47,35 @@ function Profile({isFriend, isRequested, pid }) {
         setShareFile(image)
     }
 
+    const handleCoverChange = (e) => {
+        const image = e.target.files[0]
+    
+        if(image === '' || image === undefined){
+            alert(`Not an image, the file is a ${typeof{ image }}`);
+            return;
+        }
+        setCover(image);
+    }
+
+    const updateProfile = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        if(shareFile){
+            formData.append('profile', shareFile, shareFile.name);
+        }
+        if(cover){
+            formData.append('coverPic', cover, cover.name);
+        }
+        await axiosInstance.post(`profile/`, formData).then((res) => {
+            console.log(res.data);
+            window.location.reload();
+        })
+    }
+
   return (
     <>
         <Container>
-            <Cover src="/images/cover.png" />
+            <Cover src={`http://127.0.0.1:8000${profile?.coverPic}`} />
             <User>
                 <img src={`http://127.0.0.1:8000${profile?.profile}`} alt="" />
                 <span></span>
@@ -244,33 +270,54 @@ function Profile({isFriend, isRequested, pid }) {
         
     {
         update && (
-            <Update>
-                <Head>
-                    <h2>Edit Profile</h2>
-                    <p onClick={e => setUpdate(!update)}>X</p>
-                </Head>
+            <Wrapp>
+                <Update>
+                    <Head>
+                        <h2>Edit Profile</h2>
+                        <p onClick={e => setUpdate(!update)}>X</p>
+                    </Head>
 
-                <Body>
-                    <div>
-                        <h3>Profile Pictue</h3>
-                        <span onClick={e => document.getElementById("file").click()}>Edit</span>
-                        <input onChange={handleChange} style={{display: "none"}} type="file" id="file" />
-                    </div>
-                    <div>
-                        {
-                            !shareFile ? (
-                                <img src={`http://127.0.0.1:8000${profile?.profile}`} alt="" />
-                            ) : (
-                                <img src={URL.createObjectURL(shareFile)} alt="" />
-                            )
-                        }
-                    </div>
-                </Body>
+                    <Body>
+                        <div>
+                            <h3>Profile Pictue</h3>
+                            <span onClick={e => document.getElementById("file").click()}>Edit</span>
+                            <input onChange={handleChange} style={{display: "none"}} type="file" id="file" />
+                        </div>
+                        <div>
+                            {
+                                !shareFile ? (
+                                    <img src={`http://127.0.0.1:8000${profile?.profile}`} alt="" />
+                                ) : (
+                                    <img src={URL.createObjectURL(shareFile)} alt="" />
+                                )
+                            }
+                        </div>
+                    </Body>
 
-                <Submit>
-                    Update
-                </Submit>
-            </Update>
+                    <Body2>
+                        <div>
+                            <h3>Cover Photo</h3>
+                            <span onClick={e => document.getElementById("cover").click()}>Edit</span>
+                            <input onChange={handleCoverChange} style={{display: "none"}} type="file" id="cover" />
+                        </div>
+
+                        <div>
+                            {
+                                !cover ? (
+                                    <img src={`http://127.0.0.1:8000${profile?.coverPic}`} alt="" />
+                                ) : (
+                                    <img src={URL.createObjectURL(cover)} alt="" />
+                                )
+                            }
+                        </div>
+
+                    </Body2>
+
+                    <Submit onClick={updateProfile}>
+                        Update
+                    </Submit>
+                </Update>
+            </Wrapp>
         )
     }
 
@@ -289,6 +336,8 @@ const Container = styled.div`
 
 const Cover = styled.img`
     width: 100%;
+    height: 350px;
+    object-fit: cover;
     border-radius: 6px;
 `
 
@@ -563,16 +612,30 @@ const Friends = styled.div`
     }
 `
 
-const Update = styled.div`
-    background-color: #1f1e1e;
-    top: 100px;
+const Wrapp = styled.div`
+    background-color: rgba(0,0,0,0.7);
+    top: 0;
     left: 0;
     right: 0;
+    width: 100%;
+    height: 100%;
     margin-left: auto;
     margin-right: auto;
-    width: 40%;
     position: fixed;
-    z-index: 999999;
+    z-index: 99999999;
+    display: flex;
+    justify-content: center;
+    overflow-y: scroll;
+`
+
+
+const Update = styled.div`
+    background-color: #1f1e1e;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    width: 40%;
+    height: 75%;
     border-radius: 10px;
 `
 
@@ -637,6 +700,38 @@ const Body = styled.div`
     }
 `
 
+const Body2 = styled.div`
+    padding: 10px;
+
+    &>div:first-child{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        &>h3{
+            color: white;
+            font-weight: 300;
+        }
+        &>span{
+            color: #0a66c2;
+            cursor: pointer;
+            font-size: 18px;
+        }
+    }
+
+    &>div:last-child{
+        display: flex;
+        justify-content: center;
+        &>img{
+            width: 80%;
+            height: 200px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+    }
+`
+
+
 const Submit = styled.button`
     display: block;
     width: 80%;
@@ -650,4 +745,9 @@ const Submit = styled.button`
     margin-right: auto;
     margin-top: 10px;
     margin-bottom: 10px;
+
+    &:hover{
+        cursor: pointer;
+        background-color: #096dd1;
+    }
 `
