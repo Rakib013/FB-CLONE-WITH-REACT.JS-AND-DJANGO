@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
+import {useGlobalState} from '../state/provider';
+
 
 function RightSideBar() {
+    const [{profile}] = useGlobalState();
   return (
     <Right>
         <div>
@@ -48,74 +52,23 @@ function RightSideBar() {
                     <img src="/images/sach.png" alt="" />
                     <img src="/images/thd.png" alt="" />
 
-                    {/* <a href="#see-more">Hide Chat</a> */}
                 </div>
             </Title>
 
             <Onlines>
-                <Online>
-                    <div>
-                        <div></div>
-                        <img src="/images/member-1.png" alt="" />
-                    </div>
-                    <p>Sagor Ahammed Munna</p>
-                </Online>
-
-                <Online>
-                    <div>
-                        <div></div>
-                        <img src="/images/fahimun.jpeg" alt="" />
-                    </div>
-                    <p>Fahimun Islam Lamia</p>
-                </Online>
-
-                <Online>
-                    <div>
-                        <div></div>
-                        <img src="/images/member-1.png" alt="" />
-                    </div>
-                    <p>Nur Jahan</p>
-                </Online>
-
-                <Online>
-                    <div>
-                        <div></div>
-                        <img src="/images/nushrat.jpeg" alt="" />
-                    </div>
-                    <p>Nushrat Jahan</p>
-                </Online>
-
-                <Online>
-                    <div>
-                        <div></div>
-                        <img src="/images/member-1.png" alt="" />
-                    </div>
-                    <p>Sagor Ahammed Munna</p>
-                </Online>
-
-                <Online>
-                    <div>
-                        <div></div>
-                        <img src="/images/fahimun.jpeg" alt="" />
-                    </div>
-                    <p>Fahimun Islam Lamia</p>
-                </Online>
-
-                <Online>
-                    <div>
-                        <div></div>
-                        <img src="/images/member-1.png" alt="" />
-                    </div>
-                    <p>Nur Jahan</p>
-                </Online>
-
-                <Online>
-                    <div>
-                        <div></div>
-                        <img src="/images/nushrat.jpeg" alt="" />
-                    </div>
-                    <p>Nushrat Jahan</p>
-                </Online>
+                {
+                    profile?.friend?.map(friend => (
+                        <Link to={`/friends/profile/${friend.id}`}>
+                            <Online>
+                                <div>
+                                    <div></div>
+                                    <img src={`http://127.0.0.1:8000${friend?.profile}`} alt="" />
+                                </div>
+                                <p>{friend?.first_name + " " + friend?.last_name}</p>
+                            </Online>
+                        </Link>
+                    ))
+                }
             </Onlines>
         </div>
     </Right>

@@ -193,9 +193,9 @@ class FriendAccept(APIView):
     def delete(self, request, id):
         user = request.user
         friend = User.objects.get(id=id)
-        if user.requestedFriend.filter(id=friend.id).exists():
-            user.requestedFriend.remove(friend)
+        if user.friends.filter(id=friend.id).exists():
+            user.friends.remove(friend)
             user.save()
-            return Response("Friend request rejected", status=status.HTTP_200_OK)
+            return Response("Friend has been deleted succesfully!", status=status.HTTP_200_OK)
         else:
-            return Response("Friend request not found", status=status.HTTP_204_NO_CONTENT)
+            return Response("Friend not found", status=status.HTTP_204_NO_CONTENT)

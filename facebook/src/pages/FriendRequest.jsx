@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { axiosInstance } from '../api/axios';
 import {useGlobalState} from '../state/provider';
 
 
 function FriendRequest() {
     const [{profile}] = useGlobalState();
+
   return (
     <>
         <Container>
@@ -13,54 +15,23 @@ function FriendRequest() {
             </h3>
             <Content>
                 {
-                    profile?.requestedFriend?.map(friend => (
+                    profile?.requests?.map(friend => (
                         <Box>
-                            <img src="/images/profile.jpg" alt="" />
+                            <img src={`http://127.0.0.1:8000${friend?.profile}`} alt="" />
                             <div>
-                                <h3>Rakibul Islam</h3>
-                                <button>Confirm</button>
-                                <button>Delete</button>
+                                <h3>{friend?.first_name + " " + friend?.last_name}</h3>
+                                <button onClick={async e => {
+                                    await axiosInstance.post(`friend/accept/${friend?.id}/`);
+                                    window.location.href = `/friends/profile/${friend?.id}`;
+                                }}>Confirm</button>
+                                <button onClick={async e => {
+                                    await axiosInstance.delete(`friend/request/${friend?.id}/`);
+                                    window.location.reload();
+                                }}>Delete</button>
                             </div>
                         </Box>
                     ))
                 }
-                <Box>
-                    <img src="/images/profile.jpg" alt="" />
-                    <div>
-                        <h3>Rakibul Islam</h3>
-                        <button>Confirm</button>
-                        <button>Delete</button>
-                    </div>
-                </Box>
-
-                <Box>
-                    <img src="/images/profile.jpg" alt="" />
-                    <div>
-                        <h3>Rakibul Islam</h3>
-                        <button>Confirm</button>
-                        <button>Delete</button>
-                    </div>
-                </Box>
-
-                <Box>
-                    <img src="/images/profile.jpg" alt="" />
-                    <div>
-                        <h3>Rakibul Islam</h3>
-                        <button>Confirm</button>
-                        <button>Delete</button>
-                    </div>
-                </Box>
-
-                <Box>
-                    <img src="/images/profile.jpg" alt="" />
-                    <div>
-                        <h3>Rakibul Islam</h3>
-                        <button>Confirm</button>
-                        <button>Delete</button>
-                    </div>
-                </Box>
-
-                
             </Content>
         </Container>
     </>
@@ -71,6 +42,7 @@ export default FriendRequest;
 
 const Container = styled.div`
     padding: 50px;
+
     &>h3{
         color: white;
         font-weight: 300;
@@ -82,7 +54,6 @@ const Content = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-gap: 20px;
-    justify-content: flex-start;
 `
 
 
@@ -122,6 +93,10 @@ const Box = styled.div`
             font-size: 16px;
             margin-bottom: 10px;
             cursor: pointer;
+
+            &:hover{
+                background-color: #0a76e2;
+            }
         }
 
         &>button:last-child{
