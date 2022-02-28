@@ -135,6 +135,7 @@ const User = styled.div`
     color: var(--font-color);
     &>img{
         width: 40px;
+        height: 40px;
         border-radius: 50%;
         object-fit: cover;
         margin-right: 15px;

@@ -40,7 +40,7 @@ class UserSignUp(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# Profile API View
+# Get/Update -> Profile API View
 class UserProfile(APIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
@@ -49,6 +49,15 @@ class UserProfile(APIView):
         user = request.user
         serializer = UserSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        user = request.user
+        serializer = UpdateUserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response("Profile updated successfully", status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # Particular User Profile API View
