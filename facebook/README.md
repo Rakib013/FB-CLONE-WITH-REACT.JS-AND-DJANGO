@@ -47,6 +47,11 @@ This is the User Profile
 ![Screenshot 2022-03-01 at 1 20 32 AM](https://user-images.githubusercontent.com/74490930/156045150-6377ae4b-ab9d-40c9-b493-950fcac41e4d.png)
 
 
+This is the user profile updating pop up
+
+![Screenshot 2022-03-01 at 1 27 10 AM](https://user-images.githubusercontent.com/74490930/156046077-d1b19793-5a77-4b46-b538-5de051ba5b09.png)
+
+
 This is the Unknown User Profile
 
 ![Screenshot 2022-03-01 at 1 21 29 AM](https://user-images.githubusercontent.com/74490930/156045256-8168f340-d299-4439-9222-53df8c7a9157.png)
