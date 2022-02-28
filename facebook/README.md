@@ -4,9 +4,11 @@ This project is a exact clone of real Facebook.
 
 ## File Structure
 
-In the project directory you will get sevarel folder and file.The main file and folder is like this->
+In the project directory you will get sevarel folder and file.The main file and folder is like this
+
       # Public 
           .React library Management folder
+        
       # Server -> This is the main Django Backend directory
       
           .API -> This is the Django backend application
