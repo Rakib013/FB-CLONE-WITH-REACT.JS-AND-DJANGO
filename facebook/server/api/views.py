@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.views import Token
 from django.contrib.auth import authenticate, login
-from sqlalchemy import false
+from sqlalchemy import delete, false
 from . serializers import *
 from rest_framework import status
 
@@ -149,3 +149,53 @@ class PostComment(APIView):
 
 
 
+# Friend Request, Accept, Reject, Block, Unblock API View
+class FriendRequest(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, id):
+        user = request.user
+        friend = User.objects.get(id=id)
+        if user.friends.filter(id=friend.id).exists():
+            return Response("Already friend", status=status.HTTP_200_OK)
+        else:
+            user.requestedFriend.add(friend)
+            user.save()
+            return Response("Friend request sent", status=status.HTTP_200_OK)
+    
+    def delete(self, request, id):
+        user = request.user
+        friend = User.objects.get(id=id)
+        if user.requestedFriend.filter(id=friend.id).exists():
+            user.requestedFriend.remove(friend)
+            user.save()
+            return Response("Friend request rejected", status=status.HTTP_200_OK)
+        else:
+            return Response("No friend request", status=status.HTTP_200_OK)
+
+
+class FriendAccept(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, id):
+        user = request.user
+        friend = User.objects.get(id=id)
+        if user.requestedFriend.filter(id=friend.id).exists():
+            user.friends.add(friend)
+            user.requestedFriend.remove(friend)
+            user.save()
+            return Response("Friend request accepted", status=status.HTTP_200_OK)
+        else:
+            return Response("Friend request not found", status=status.HTTP_204_NO_CONTENT)
+
+    def delete(self, request, id):
+        user = request.user
+        friend = User.objects.get(id=id)
+        if user.requestedFriend.filter(id=friend.id).exists():
+            user.requestedFriend.remove(friend)
+            user.save()
+            return Response("Friend request rejected", status=status.HTTP_200_OK)
+        else:
+            return Response("Friend request not found", status=status.HTTP_204_NO_CONTENT)

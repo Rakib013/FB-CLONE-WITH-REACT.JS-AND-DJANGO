@@ -31,17 +31,23 @@ function Nav() {
                 </SearchBox>
             </Left>
             <Center>
-                <div>
-                    <Icon src="/images/hm.png" alt="" />
-                </div>
+                <Link to="/">
+                    <div>
+                        <Icon src="/images/hm.png" alt="" />
+                    </div>
+                </Link>
 
-                <div>
-                    <Icon src="/images/friends.png" alt="" />
-                </div>
+                <Link to="/friends/request">
+                    <div>
+                            <Icon src="/images/frd.png" alt="" />
+                    </div>
+                </Link>
 
-                <div>
-                    <Icon src="/images/wt.png" alt="" />
-                </div>
+                <Link to="/watch">
+                    <div>
+                        <Icon src="/images/wt.png" alt="" />
+                    </div>
+                </Link>
             </Center>
             <Right>
                 <Link to={`/friends/profile/${profile?.id}`}>
@@ -192,21 +198,26 @@ const Center = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    &>div{
-        width: 50px;
-        margin-right: 80px;
-        height: 50px;
-        display: flex;
-        justify-content: center;
-        background-color: #f0eaea;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        @media screen and (max-width: 900px){
-            margin-right: 30px;
+    &>a{
+        &>div{
+            width: 150px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.4s;
+            
+            @media screen and (max-width: 900px){
+                margin-right: 30px;
+            }
+            
+            &:hover{
+                background-color: #626262;
+            }
         }
     }
 `
@@ -256,7 +267,7 @@ const Dropdown = styled.div`
   justify-content: center;
   height: 40px;
   border-radius: 50%;
-  background-color: ${props => props.drop ? '#f8f0f0' : '#3d3737'};
+  background-color: ${props => props.drop ? '#f8f0f0' : ''};
   cursor: pointer;
   transition: 0.4s;
 
@@ -266,7 +277,7 @@ const Dropdown = styled.div`
   }
 
   &:hover{
-    background-color: ${props => props.drop ? '#b3aeae' : '#131111'};
+    background-color: ${props => props.drop ? '#b3aeae' : '#3d3737'};
   }
 
   @media screen and (max-width: 900px){
